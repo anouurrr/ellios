@@ -203,13 +203,7 @@
       "salary_range": "$75,000 - $150,000",
       "growth_outlook": "Excellent",
       "education": "Bachelor's in Computer Science or related field",
-      "skills": ["Programming", "Problem-solving", "Analytical thinking", "Teamwork"],
-      "matching_criteria": {
-        "environment": ["office", "remote"],
-        "activities": ["problem_solving", "creating", "analyzing"],
-        "technology": ["software", "web", "mobile"],
-        "work_style": ["independently", "small_groups"]
-      }
+      "skills": ["Programming", "Problem-solving", "Analytical thinking", "Teamwork"]
     },
     "data_scientist": {
       "title": "Data Scientist",
@@ -217,41 +211,7 @@
       "salary_range": "$85,000 - $160,000",
       "growth_outlook": "Excellent",
       "education": "Bachelor's/Master's in Statistics, Math, or Computer Science",
-      "skills": ["Statistical analysis", "Programming", "Data visualization", "Machine learning"],
-      "matching_criteria": {
-        "environment": ["office", "remote", "lab"],
-        "activities": ["analyzing", "problem_solving", "research"],
-        "technology": ["data", "ai_ml", "software"],
-        "subjects": ["mathematics", "science"]
-      }
-    },
-    "ux_designer": {
-      "title": "UX/UI Designer",
-      "description": "Create user-friendly digital experiences and interfaces",
-      "salary_range": "$65,000 - $120,000",
-      "growth_outlook": "Very Good",
-      "education": "Bachelor's in Design, Psychology, or related field",
-      "skills": ["Design thinking", "User research", "Prototyping", "Visual design"],
-      "matching_criteria": {
-        "environment": ["office", "remote", "creative"],
-        "activities": ["creating", "problem_solving", "analyzing"],
-        "technology": ["web", "mobile", "software"],
-        "subjects": ["arts", "technology"]
-      }
-    },
-    "teacher": {
-      "title": "Teacher/Educator",
-      "description": "Educate and inspire students in various subjects and grade levels",
-      "salary_range": "$40,000 - $80,000",
-      "growth_outlook": "Good",
-      "education": "Bachelor's degree + Teaching certification",
-      "skills": ["Communication", "Patience", "Leadership", "Subject expertise"],
-      "matching_criteria": {
-        "environment": ["educational"],
-        "activities": ["teaching", "helping_people", "leading"],
-        "work_style": ["team_member", "mentoring"],
-        "impact": ["individual", "community"]
-      }
+      "skills": ["Statistical analysis", "Programming", "Data visualization", "Machine learning"]
     },
     "doctor": {
       "title": "Medical Doctor",
@@ -259,41 +219,15 @@
       "salary_range": "$200,000 - $400,000",
       "growth_outlook": "Good",
       "education": "Medical degree + Residency",
-      "skills": ["Medical knowledge", "Empathy", "Problem-solving", "Communication"],
-      "matching_criteria": {
-        "environment": ["healthcare"],
-        "activities": ["helping_people", "problem_solving", "analyzing"],
-        "subjects": ["science"],
-        "impact": ["individual", "community"]
-      }
+      "skills": ["Medical knowledge", "Empathy", "Problem-solving", "Communication"]
     },
-    "marketing_manager": {
-      "title": "Marketing Manager",
-      "description": "Develop and execute marketing strategies to promote products/services",
-      "salary_range": "$55,000 - $110,000",
+    "teacher": {
+      "title": "Teacher/Educator",
+      "description": "Educate and inspire students in various subjects and grade levels",
+      "salary_range": "$40,000 - $80,000",
       "growth_outlook": "Good",
-      "education": "Bachelor's in Marketing, Business, or Communications",
-      "skills": ["Strategic thinking", "Creativity", "Analytics", "Communication"],
-      "matching_criteria": {
-        "environment": ["office", "remote"],
-        "activities": ["creating", "analyzing", "leading"],
-        "work_style": ["team_leader", "team_member"],
-        "communication": ["presentations", "written", "visual"]
-      }
-    },
-    "engineer": {
-      "title": "Mechanical Engineer",
-      "description": "Design and develop mechanical systems and products",
-      "salary_range": "$65,000 - $120,000",
-      "growth_outlook": "Good",
-      "education": "Bachelor's in Mechanical Engineering",
-      "skills": ["Technical design", "Problem-solving", "Math", "CAD software"],
-      "matching_criteria": {
-        "environment": ["office", "lab"],
-        "activities": ["problem_solving", "creating", "analyzing"],
-        "subjects": ["mathematics", "science"],
-        "tasks": ["analytical", "hands_on"]
-      }
+      "education": "Bachelor's degree + Teaching certification",
+      "skills": ["Communication", "Patience", "Leadership", "Subject expertise"]
     },
     "psychologist": {
       "title": "Psychologist",
@@ -301,13 +235,31 @@
       "salary_range": "$60,000 - $120,000",
       "growth_outlook": "Good",
       "education": "Master's/Doctoral degree in Psychology",
-      "skills": ["Empathy", "Listening", "Analysis", "Communication"],
-      "matching_criteria": {
-        "environment": ["healthcare", "office"],
-        "activities": ["helping_people", "analyzing", "research"],
-        "work_style": ["one_on_one", "independently"],
-        "impact": ["individual", "community"]
-      }
+      "skills": ["Empathy", "Listening", "Analysis", "Communication"]
+    },
+    "marketing_manager": {
+      "title": "Marketing Manager",
+      "description": "Develop and execute marketing strategies to promote products/services",
+      "salary_range": "$55,000 - $110,000",
+      "growth_outlook": "Good",
+      "education": "Bachelor's in Marketing, Business, or Communications",
+      "skills": ["Strategic thinking", "Creativity", "Analytics", "Communication"]
+    },
+    "ux_designer": {
+      "title": "UX/UI Designer",
+      "description": "Create user-friendly digital experiences and interfaces",
+      "salary_range": "$65,000 - $120,000",
+      "growth_outlook": "Very Good",
+      "education": "Bachelor's in Design, Psychology, or related field",
+      "skills": ["Design thinking", "User research", "Prototyping", "Visual design"]
+    },
+    "mechanical_engineer": {
+      "title": "Mechanical Engineer",
+      "description": "Design and develop mechanical systems and products",
+      "salary_range": "$65,000 - $120,000",
+      "growth_outlook": "Good",
+      "education": "Bachelor's in Mechanical Engineering",
+      "skills": ["Technical design", "Problem-solving", "Math", "CAD software"]
     },
     "graphic_designer": {
       "title": "Graphic Designer",
@@ -315,13 +267,7 @@
       "salary_range": "$40,000 - $75,000",
       "growth_outlook": "Fair",
       "education": "Bachelor's in Graphic Design or Fine Arts",
-      "skills": ["Visual design", "Creativity", "Software proficiency", "Communication"],
-      "matching_criteria": {
-        "environment": ["creative", "office", "remote"],
-        "activities": ["creating", "problem_solving"],
-        "subjects": ["arts", "technology"],
-        "motivation": ["creativity", "personal_growth"]
-      }
+      "skills": ["Visual design", "Creativity", "Software proficiency", "Communication"]
     },
     "business_analyst": {
       "title": "Business Analyst",
@@ -329,13 +275,7 @@
       "salary_range": "$60,000 - $110,000",
       "growth_outlook": "Good",
       "education": "Bachelor's in Business, Economics, or related field",
-      "skills": ["Analytical thinking", "Communication", "Problem-solving", "Process improvement"],
-      "matching_criteria": {
-        "environment": ["office", "remote"],
-        "activities": ["analyzing", "problem_solving", "organizing"],
-        "work_style": ["team_member", "small_groups"],
-        "communication": ["written", "presentations"]
-      }
+      "skills": ["Analytical thinking", "Communication", "Problem-solving", "Process improvement"]
     }
   }
 }

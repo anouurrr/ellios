@@ -179,7 +179,8 @@ def feedback():
     # Calculate real stats
     total_feedback = len(feedback_list)
     if total_feedback > 0:
-        avg_rating = sum(int(f.get('rating', 0)) for f in feedback_list) / total_feedback
+        ratings = [int(f.get('rating', 0)) for f in feedback_list if f.get('rating') and str(f.get('rating')).isdigit()]
+        avg_rating = sum(ratings) / len(ratings) if ratings else 0
         avg_rating = round(avg_rating, 1)
     else:
         avg_rating = 0.0
