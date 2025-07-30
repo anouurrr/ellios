@@ -1,122 +1,250 @@
 {% extends "base.html" %}
 
+{% block title %}Home - Elios{% endblock %}
+
 {% block content %}
-<div class="hero-section">
-    <div class="container">
-        <div class="row align-items-center min-vh-75">
-            <div class="col-lg-6">
-                <div class="hero-content">
-                    <div class="compass-container mb-4">
-                        <i class="fas fa-compass fa-6x text-primary rotating-compass"></i>
-                    </div>
-                    <h1 class="display-4 fw-bold mb-3 fade-in">
-                        Welcome back, <span class="text-gradient">{{ user_name }}</span>!
-                    </h1>
-                    <p class="lead mb-4 fade-in-delay">
-                        Ready to <strong>{{ user_goal }}</strong>? Let's continue your journey of growth and discovery.
-                    </p>
+<div class="container mt-4">
+    <!-- Welcome Section -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-10 col-lg-8 text-center">
+            <div class="welcome-section">
+                <div class="compass-container mb-4">
+                    <i class="fas fa-compass rotating-compass" style="font-size: 5rem; color: var(--primary-color);"></i>
                 </div>
+                <h1 class="display-4 mb-3">Welcome back, {{ user_name }}!</h1>
+                <p class="lead text-muted">Ready to {{ user_goal }}? Your inner compass is here to guide you.</p>
             </div>
-            <div class="col-lg-6">
-                <div class="navigation-cards">
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <a href="{{ url_for('career') }}" class="card nav-card h-100 text-decoration-none hover-lift">
-                                <div class="card-body text-center p-4">
-                                    <i class="fas fa-briefcase fa-3x text-primary mb-3"></i>
-                                    <h5 class="card-title text-dark">Career Finder</h5>
-                                    <p class="card-text text-muted">Discover your perfect career path</p>
-                                    <div class="status-badge ready">✅ Ready</div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <a href="{{ url_for('timetable') }}" class="card nav-card h-100 text-decoration-none hover-lift">
-                                <div class="card-body text-center p-4">
-                                    <i class="fas fa-calendar-alt fa-3x text-primary mb-3"></i>
-                                    <h5 class="card-title text-dark">Timetable Builder</h5>
-                                    <p class="card-text text-muted">Plan your perfect schedule</p>
-                                    <div class="status-badge ready">✅ Ready</div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <a href="{{ url_for('dashboard') }}" class="card nav-card h-100 text-decoration-none hover-lift">
-                                <div class="card-body text-center p-4">
-                                    <i class="fas fa-chart-bar fa-3x text-primary mb-3"></i>
-                                    <h5 class="card-title text-dark">Dashboard</h5>
-                                    <p class="card-text text-muted">Track your progress</p>
-                                    <div class="status-badge ready">✅ Ready</div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <a href="{{ url_for('settings') }}" class="card nav-card h-100 text-decoration-none hover-lift">
-                                <div class="card-body text-center p-4">
-                                    <i class="fas fa-cog fa-3x text-primary mb-3"></i>
-                                    <h5 class="card-title text-dark">Settings</h5>
-                                    <p class="card-text text-muted">Customize your experience</p>
-                                    <div class="status-badge ready">✅ Ready</div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <a href="{{ url_for('feedback') }}" class="card nav-card h-100 text-decoration-none hover-lift">
-                                <div class="card-body text-center p-4">
-                                    <i class="fas fa-comment fa-3x text-primary mb-3"></i>
-                                    <h5 class="card-title text-dark">Feedback</h5>
-                                    <p class="card-text text-muted">Share your thoughts</p>
-                                    <div class="status-badge ready">✅ Ready</div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="card nav-card h-100 coming-soon">
-                                <div class="card-body text-center p-4">
-                                    <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                                    <h5 class="card-title text-muted">Community</h5>
-                                    <p class="card-text text-muted">Connect with peers</p>
-                                    <div class="status-badge coming-soon">🚧 Coming Soon</div>
-                                </div>
+        </div>
+    </div>
+
+    <!-- Navigation Sections - Vertical Layout -->
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            
+            <!-- Career Discovery Section -->
+            <div class="feature-card mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon me-3">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-1">Career Discovery</h4>
+                                <p class="text-muted mb-0">Find your ideal career path through personalized assessment</p>
                             </div>
                         </div>
+                        <p class="card-text">Take our comprehensive career quiz to discover careers that match your interests, skills, and values.</p>
+                        <a href="{{ url_for('career') }}" class="btn btn-primary">
+                            Start Career Quiz <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
                     </div>
                 </div>
+            </div>
+
+            <!-- Timetable Builder Section -->
+            <div class="feature-card mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon me-3">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-1">Weekly Planner</h4>
+                                <p class="text-muted mb-0">Design your ideal weekly schedule with drag-and-drop</p>
+                            </div>
+                        </div>
+                        <p class="card-text">Create balanced timetables that help you achieve your goals while maintaining work-life balance.</p>
+                        <a href="{{ url_for('timetable') }}" class="btn btn-primary">
+                            Build Your Schedule <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Dashboard Section -->
+            <div class="feature-card mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon me-3">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-1">Progress Analytics</h4>
+                                <p class="text-muted mb-0">Track your personal growth and achievements</p>
+                            </div>
+                        </div>
+                        <p class="card-text">Visualize your progress with interactive charts and get insights into your personal development journey.</p>
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                            View Dashboard <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="feature-card mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon me-3">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-1">Personal Settings</h4>
+                                <p class="text-muted mb-0">Customize your experience and preferences</p>
+                            </div>
+                        </div>
+                        <p class="card-text">Personalize themes, manage your data, and configure settings to make Elios work best for you.</p>
+                        <a href="{{ url_for('settings') }}" class="btn btn-primary">
+                            Manage Settings <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="feature-card mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon me-3">
+                                <i class="fas fa-comment-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-1">Share Your Experience</h4>
+                                <p class="text-muted mb-0">Help us improve Elios with your feedback</p>
+                            </div>
+                        </div>
+                        <p class="card-text">Tell us how we're doing and share suggestions to make Elios even better for you and other students.</p>
+                        <a href="{{ url_for('feedback') }}" class="btn btn-primary">
+                            Give Feedback <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Motivational Quote -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 text-center">
+            <div class="quote-section">
+                <blockquote class="blockquote">
+                    <p class="mb-0">"The compass always points north, but the path you take is your choice."</p>
+                    <footer class="blockquote-footer mt-2">
+                        <cite title="Source">Your Inner Compass</cite>
+                    </footer>
+                </blockquote>
             </div>
         </div>
     </div>
 </div>
 
-<div class="features-section py-5">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-lg-4 mb-4">
-                <div class="feature-item">
-                    <i class="fas fa-compass fa-3x text-primary mb-3"></i>
-                    <h4>Find Your Direction</h4>
-                    <p class="text-muted">Discover your passions and align them with your career goals through our comprehensive assessment tools.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="feature-item">
-                    <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
-                    <h4>Track Your Growth</h4>
-                    <p class="text-muted">Monitor your progress, celebrate achievements, and identify areas for improvement with detailed analytics.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="feature-item">
-                    <i class="fas fa-lightbulb fa-3x text-primary mb-3"></i>
-                    <h4>Personalized Insights</h4>
-                    <p class="text-muted">Get tailored recommendations and insights based on your unique profile and goals.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<style>
+.welcome-section {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+}
+
+.feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card:hover .card {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.card-title {
+    color: #333;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+    padding: 12px 24px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #5a6fd8, #6a3d91);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.quote-section {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.blockquote {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #666;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feature-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.feature-card:nth-child(2) { animation-delay: 0.1s; }
+.feature-card:nth-child(3) { animation-delay: 0.2s; }
+.feature-card:nth-child(4) { animation-delay: 0.3s; }
+.feature-card:nth-child(5) { animation-delay: 0.4s; }
+.feature-card:nth-child(6) { animation-delay: 0.5s; }
+
+@media (max-width: 768px) {
+    .welcome-section {
+        padding: 2rem 1rem;
+    }
+    
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem !important;
+    }
+}
+</style>
 {% endblock %}

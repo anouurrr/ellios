@@ -2,7 +2,7 @@ import os
 import json
 import logging
 from datetime import datetime
-from flask import Flask, render_template, request, session, jsonify, redirect, url_for, send_file
+from flask import Flask, render_template, request, session, jsonify, redirect, url_for, send_file, flash
 import io
 import zipfile
 
@@ -34,14 +34,17 @@ def save_json_file(filename, data):
 
 @app.route('/')
 def index():
-    """Home page"""
+    """Home page - redirect to onboarding if not complete"""
+    if not session.get('onboarding_complete'):
+        return redirect(url_for('begin'))
+    
     user_name = session.get('user_name', 'Student')
     user_goal = session.get('user_goal', 'explore your potential')
     return render_template('index.html', user_name=user_name, user_goal=user_goal)
 
 @app.route('/begin', methods=['GET', 'POST'])
 def begin():
-    """Onboarding flow"""
+    """Onboarding flow with 6 questions"""
     if request.method == 'POST':
         # Store onboarding answers in session
         session['user_name'] = request.form.get('name', '')
@@ -52,6 +55,7 @@ def begin():
         session['user_goal'] = request.form.get('goal', '')
         session['onboarding_complete'] = True
         
+        flash(f"Welcome to Elios, {session['user_name']}! Let's begin your journey.", 'success')
         return redirect(url_for('index'))
     
     return render_template('begin.html')
@@ -75,10 +79,11 @@ def career_result():
     career_scores = {}
     for career_id, career_data in careers.items():
         score = 0
+        matching_answers = career_data.get('matching_answers', {})
         for answer_key, answer_value in answers.items():
-            if answer_key in career_data.get('matching_answers', {}):
-                if answer_value in career_data['matching_answers'][answer_key]:
-                    score += career_data['matching_answers'][answer_key][answer_value]
+            if answer_key in matching_answers:
+                if answer_value in matching_answers[answer_key]:
+                    score += matching_answers[answer_key][answer_value]
         career_scores[career_id] = score
     
     # Get top 3 matches
@@ -119,8 +124,9 @@ def settings():
 @app.route('/settings/update', methods=['POST'])
 def update_settings():
     """Update user settings"""
-    settings_data = request.json
-    session.update(settings_data)
+    settings_data = request.json or {}
+    for key, value in settings_data.items():
+        session[key] = value
     return jsonify({'success': True})
 
 @app.route('/settings/content', methods=['POST'])
@@ -143,7 +149,9 @@ def feedback():
             'timestamp': datetime.now().isoformat(),
             'rating': request.form.get('rating'),
             'feedback_text': request.form.get('feedback_text'),
-            'user_name': session.get('user_name', 'Anonymous')
+            'user_name': session.get('user_name', 'Anonymous'),
+            'helpful_features': request.form.get('helpful_features', ''),
+            'recommendation': request.form.get('recommendation', '')
         }
         
         # Load existing feedback
@@ -156,11 +164,30 @@ def feedback():
         
         # Save feedback
         if save_json_file('feedback.json', existing_feedback):
-            return render_template('feedback.html', success=True)
+            flash('Thank you for your feedback! Your response has been recorded.', 'success')
+            return redirect(url_for('feedback'))
         else:
-            return render_template('feedback.html', error=True)
+            flash('There was an error saving your feedback. Please try again.', 'error')
     
-    return render_template('feedback.html')
+    # Get actual feedback stats
+    feedback_data = load_json_file('feedback.json')
+    feedback_list = feedback_data.get('feedback', [])
+    
+    # Calculate real stats
+    total_feedback = len(feedback_list)
+    if total_feedback > 0:
+        avg_rating = sum(int(f.get('rating', 0)) for f in feedback_list) / total_feedback
+        avg_rating = round(avg_rating, 1)
+    else:
+        avg_rating = 0.0
+    
+    stats = {
+        'total_users': max(total_feedback, 0),  # Real count
+        'average_rating': avg_rating,
+        'total_feedback': total_feedback
+    }
+    
+    return render_template('feedback.html', stats=stats)
 
 @app.route('/download/<data_type>')
 def download_data(data_type):
@@ -199,7 +226,7 @@ def download_data(data_type):
 @app.route('/api/progress', methods=['POST'])
 def update_progress():
     """Update user progress"""
-    progress_data = request.json
+    progress_data = request.json or {}
     for key, value in progress_data.items():
         session[f'{key}_progress'] = value
     
@@ -218,7 +245,50 @@ def update_progress():
 if __name__ == '__main__':
     # Ensure data files exist
     if not os.path.exists('content.json'):
-        save_json_file('content.json', {})
+        # Create initial content with sample data
+        initial_content = {
+            "career_questions": [
+                {
+                    "id": "q1",
+                    "question": "What type of work environment appeals to you most?",
+                    "type": "multiple_choice",
+                    "options": [
+                        {"value": "office", "text": "Traditional office setting"},
+                        {"value": "remote", "text": "Remote/work from home"},
+                        {"value": "outdoors", "text": "Outdoor environments"},
+                        {"value": "lab", "text": "Laboratory or research facility"},
+                        {"value": "creative", "text": "Creative studio or workshop"}
+                    ]
+                },
+                {
+                    "id": "q2",
+                    "question": "Which activities do you find most engaging?",
+                    "type": "multiple_choice",
+                    "options": [
+                        {"value": "problem_solving", "text": "Solving complex problems"},
+                        {"value": "helping_people", "text": "Helping and supporting others"},
+                        {"value": "creating", "text": "Creating and designing things"},
+                        {"value": "analyzing", "text": "Analyzing data and patterns"},
+                        {"value": "leading", "text": "Leading teams and projects"}
+                    ]
+                }
+            ],
+            "careers": {
+                "software_engineer": {
+                    "title": "Software Engineer",
+                    "description": "Design, develop, and maintain software applications and systems",
+                    "growth_outlook": "Excellent",
+                    "average_salary": "$85,000 - $150,000",
+                    "required_skills": ["Programming", "Problem-solving", "Logical thinking"],
+                    "matching_answers": {
+                        "q1": {"office": 3, "remote": 3, "lab": 2},
+                        "q2": {"problem_solving": 4, "creating": 3, "analyzing": 3}
+                    }
+                }
+            }
+        }
+        save_json_file('content.json', initial_content)
+    
     if not os.path.exists('feedback.json'):
         save_json_file('feedback.json', {'feedback': []})
     
