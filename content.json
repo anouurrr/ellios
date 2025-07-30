@@ -1,0 +1,160 @@
+{
+  "career_questions": [
+    {
+      "id": "q1",
+      "question": "What type of work environment appeals to you most?",
+      "type": "multiple_choice",
+      "options": [
+        {"value": "office", "text": "Traditional office setting"},
+        {"value": "remote", "text": "Remote/work from home"},
+        {"value": "outdoors", "text": "Outdoor environments"},
+        {"value": "lab", "text": "Laboratory or research facility"},
+        {"value": "creative", "text": "Creative studio or workshop"}
+      ]
+    },
+    {
+      "id": "q2",
+      "question": "Which activities do you find most engaging?",
+      "type": "multiple_choice",
+      "options": [
+        {"value": "problem_solving", "text": "Solving complex problems"},
+        {"value": "helping_people", "text": "Helping and supporting others"},
+        {"value": "creating", "text": "Creating and designing things"},
+        {"value": "analyzing", "text": "Analyzing data and patterns"},
+        {"value": "leading", "text": "Leading teams and projects"}
+      ]
+    },
+    {
+      "id": "q3",
+      "question": "What motivates you most in your work?",
+      "type": "multiple_choice",
+      "options": [
+        {"value": "impact", "text": "Making a positive impact on society"},
+        {"value": "innovation", "text": "Innovation and creativity"},
+        {"value": "stability", "text": "Job security and stability"},
+        {"value": "growth", "text": "Personal and professional growth"},
+        {"value": "recognition", "text": "Recognition and achievement"}
+      ]
+    },
+    {
+      "id": "q4",
+      "question": "How do you prefer to work with others?",
+      "type": "multiple_choice",
+      "options": [
+        {"value": "team", "text": "As part of a collaborative team"},
+        {"value": "independently", "text": "Independently with minimal supervision"},
+        {"value": "leading", "text": "Leading and directing others"},
+        {"value": "mentoring", "text": "Mentoring and teaching others"},
+        {"value": "networking", "text": "Building networks and relationships"}
+      ]
+    },
+    {
+      "id": "q5",
+      "question": "What type of challenges do you enjoy?",
+      "type": "multiple_choice",
+      "options": [
+        {"value": "technical", "text": "Technical and analytical challenges"},
+        {"value": "creative", "text": "Creative and artistic challenges"},
+        {"value": "interpersonal", "text": "Interpersonal and communication challenges"},
+        {"value": "strategic", "text": "Strategic and planning challenges"},
+        {"value": "physical", "text": "Physical and hands-on challenges"}
+      ]
+    }
+  ],
+  "careers": {
+    "software_engineer": {
+      "title": "Software Engineer",
+      "description": "Design, develop, and maintain software applications and systems",
+      "growth_outlook": "Excellent",
+      "average_salary": "$85,000 - $150,000",
+      "required_skills": ["Programming", "Problem-solving", "Logical thinking"],
+      "matching_answers": {
+        "q1": {"office": 3, "remote": 3, "lab": 2},
+        "q2": {"problem_solving": 4, "creating": 3, "analyzing": 3},
+        "q3": {"innovation": 4, "growth": 3},
+        "q4": {"team": 3, "independently": 3},
+        "q5": {"technical": 4, "creative": 2}
+      }
+    },
+    "data_scientist": {
+      "title": "Data Scientist",
+      "description": "Analyze complex data to help organizations make informed decisions",
+      "growth_outlook": "Very Good",
+      "average_salary": "$90,000 - $160,000",
+      "required_skills": ["Statistics", "Programming", "Data visualization"],
+      "matching_answers": {
+        "q1": {"office": 3, "remote": 3, "lab": 3},
+        "q2": {"analyzing": 4, "problem_solving": 4},
+        "q3": {"innovation": 3, "growth": 3},
+        "q4": {"team": 2, "independently": 4},
+        "q5": {"technical": 4, "strategic": 3}
+      }
+    },
+    "ux_designer": {
+      "title": "UX/UI Designer",
+      "description": "Design user-friendly interfaces and experiences for digital products",
+      "growth_outlook": "Good",
+      "average_salary": "$70,000 - $120,000",
+      "required_skills": ["Design thinking", "User research", "Prototyping"],
+      "matching_answers": {
+        "q1": {"office": 3, "remote": 3, "creative": 4},
+        "q2": {"creating": 4, "helping_people": 3, "problem_solving": 3},
+        "q3": {"innovation": 4, "impact": 3},
+        "q4": {"team": 4, "mentoring": 2},
+        "q5": {"creative": 4, "interpersonal": 3}
+      }
+    },
+    "teacher": {
+      "title": "Teacher/Educator",
+      "description": "Educate and inspire students in various subjects and grade levels",
+      "growth_outlook": "Stable",
+      "average_salary": "$45,000 - $80,000",
+      "required_skills": ["Communication", "Patience", "Subject expertise"],
+      "matching_answers": {
+        "q1": {"office": 2, "creative": 3},
+        "q2": {"helping_people": 4, "creating": 3, "leading": 3},
+        "q3": {"impact": 4, "growth": 3},
+        "q4": {"leading": 3, "mentoring": 4},
+        "q5": {"interpersonal": 4, "creative": 3}
+      }
+    },
+    "marketing_manager": {
+      "title": "Marketing Manager",
+      "description": "Develop and execute marketing strategies to promote products and services",
+      "growth_outlook": "Good",
+      "average_salary": "$65,000 - $110,000",
+      "required_skills": ["Strategic thinking", "Communication", "Creativity"],
+      "matching_answers": {
+        "q1": {"office": 3, "creative": 3},
+        "q2": {"creating": 3, "leading": 4, "analyzing": 3},
+        "q3": {"recognition": 3, "growth": 3, "innovation": 3},
+        "q4": {"team": 4, "leading": 4, "networking": 4},
+        "q5": {"strategic": 4, "creative": 3, "interpersonal": 3}
+      }
+    }
+  },
+  "languages": {
+    "en": {
+      "home": "Home",
+      "career": "Career Finder",
+      "timetable": "Timetable Builder",
+      "dashboard": "Dashboard",
+      "settings": "Settings",
+      "feedback": "Feedback",
+      "welcome": "Welcome",
+      "get_started": "Get Started",
+      "coming_soon": "Coming Soon 🚧"
+    },
+    "ur": {
+      "home": "گھر",
+      "career": "کیریئر فائنڈر",
+      "timetable": "ٹائم ٹیبل بلڈر",
+      "dashboard": "ڈیش بورڈ",
+      "settings": "سیٹنگز",
+      "feedback": "رائے",
+      "welcome": "خوش آمدید",
+      "get_started": "شروع کریں",
+      "coming_soon": "جلد آ رہا ہے 🚧"
+    }
+  }
+}

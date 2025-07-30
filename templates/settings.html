@@ -1,0 +1,504 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - Elios{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-cog me-2"></i>Settings</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="#appearance" class="list-group-item list-group-item-action active" data-bs-toggle="tab">
+                        <i class="fas fa-palette me-2"></i>Appearance
+                    </a>
+                    <a href="#language" class="list-group-item list-group-item-action" data-bs-toggle="tab">
+                        <i class="fas fa-globe me-2"></i>Language
+                    </a>
+                    <a href="#notifications" class="list-group-item list-group-item-action" data-bs-toggle="tab">
+                        <i class="fas fa-bell me-2"></i>Notifications
+                    </a>
+                    <a href="#data" class="list-group-item list-group-item-action" data-bs-toggle="tab">
+                        <i class="fas fa-database me-2"></i>Data Management
+                    </a>
+                    <a href="#editor" class="list-group-item list-group-item-action" data-bs-toggle="tab">
+                        <i class="fas fa-code me-2"></i>Content Editor
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-9">
+            <div class="tab-content">
+                <!-- Appearance Settings -->
+                <div class="tab-pane fade show active" id="appearance">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header">
+                            <h5 class="mb-0">Appearance Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <h6>Theme</h6>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                                        <label class="form-check-label" for="darkModeToggle">
+                                            <i class="fas fa-moon me-2"></i>Dark Mode
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Text Size</h6>
+                                    <select class="form-select" id="textSizeSelect">
+                                        <option value="small">Small</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="large">Large</option>
+                                        <option value="extra-large">Extra Large</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h6>Color Scheme</h6>
+                                    <div class="color-scheme-options">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="colorScheme" id="defaultScheme" value="default" checked>
+                                            <label class="form-check-label color-preview" for="defaultScheme">
+                                                <div class="color-swatch" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                                                Default
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="colorScheme" id="tealScheme" value="teal">
+                                            <label class="form-check-label color-preview" for="tealScheme">
+                                                <div class="color-swatch" style="background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);"></div>
+                                                Teal
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="colorScheme" id="purpleScheme" value="purple">
+                                            <label class="form-check-label color-preview" for="purpleScheme">
+                                                <div class="color-swatch" style="background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);"></div>
+                                                Purple
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-primary" id="saveAppearance">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Language Settings -->
+                <div class="tab-pane fade" id="language">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header">
+                            <h5 class="mb-0">Language Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <h6>Interface Language</h6>
+                                    <select class="form-select" id="languageSelect">
+                                        <option value="en" selected>English</option>
+                                        <option value="ur">اردو (Urdu)</option>
+                                        <option value="es">Español (Spanish)</option>
+                                        <option value="fr">Français (French)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Date Format</h6>
+                                    <select class="form-select" id="dateFormatSelect">
+                                        <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                        <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+                                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Language changes will take effect after refreshing the page.
+                            </div>
+                            
+                            <button class="btn btn-primary" id="saveLanguage">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notifications Settings -->
+                <div class="tab-pane fade" id="notifications">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header">
+                            <h5 class="mb-0">Notification Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h6>Browser Notifications</h6>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="enableNotifications" checked>
+                                    <label class="form-check-label" for="enableNotifications">
+                                        Enable browser notifications
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="scheduleReminders" checked>
+                                    <label class="form-check-label" for="scheduleReminders">
+                                        Schedule reminders
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="progressUpdates">
+                                    <label class="form-check-label" for="progressUpdates">
+                                        Progress milestone updates
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6>Reminder Frequency</h6>
+                                <select class="form-select" id="reminderFrequency">
+                                    <option value="never">Never</option>
+                                    <option value="daily" selected>Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
+                            </div>
+                            
+                            <button class="btn btn-primary" id="saveNotifications">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Management -->
+                <div class="tab-pane fade" id="data">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header">
+                            <h5 class="mb-0">Data Management</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <h6>Export Data</h6>
+                                    <p class="text-muted small">Download your data for backup or analysis</p>
+                                    <button class="btn btn-outline-primary me-2" id="exportJSON">
+                                        <i class="fas fa-file-code me-2"></i>Export as JSON
+                                    </button>
+                                    <button class="btn btn-outline-success" id="exportCSV">
+                                        <i class="fas fa-file-csv me-2"></i>Export as CSV
+                                    </button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6>Import Data</h6>
+                                    <p class="text-muted small">Import previously exported data</p>
+                                    <input type="file" class="form-control" id="importFile" accept=".json,.csv">
+                                    <button class="btn btn-outline-info mt-2" id="importData">
+                                        <i class="fas fa-file-upload me-2"></i>Import Data
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-danger">Danger Zone</h6>
+                                    <p class="text-muted small">These actions cannot be undone</p>
+                                    <button class="btn btn-outline-warning me-2" id="clearProgress">
+                                        <i class="fas fa-eraser me-2"></i>Clear Progress
+                                    </button>
+                                    <button class="btn btn-outline-danger" id="deleteAllData">
+                                        <i class="fas fa-trash me-2"></i>Delete All Data
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Editor -->
+                <div class="tab-pane fade" id="editor">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header">
+                            <h5 class="mb-0">Content Editor</h5>
+                            <small class="text-muted">Advanced: Edit application content and questions</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Warning:</strong> Editing this content may affect application functionality. 
+                                Make sure you understand the structure before making changes.
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="contentEditor" class="form-label">Content JSON:</label>
+                                <textarea class="form-control font-monospace" id="contentEditor" rows="20" 
+                                         placeholder="Loading content..."></textarea>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <button class="btn btn-outline-secondary me-2" id="formatJSON">
+                                        <i class="fas fa-indent me-2"></i>Format JSON
+                                    </button>
+                                    <button class="btn btn-outline-info" id="validateJSON">
+                                        <i class="fas fa-check-circle me-2"></i>Validate
+                                    </button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-outline-danger me-2" id="resetContent">
+                                        <i class="fas fa-undo me-2"></i>Reset to Default
+                                    </button>
+                                    <button class="btn btn-success" id="saveContent">
+                                        <i class="fas fa-save me-2"></i>Save Content
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load current settings
+    loadCurrentSettings();
+    
+    // Appearance settings
+    document.getElementById('darkModeToggle').addEventListener('change', function() {
+        if (this.checked) {
+            document.body.classList.add('dark-theme');
+            localStorage.setItem('elios_dark_mode', 'true');
+        } else {
+            document.body.classList.remove('dark-theme');
+            localStorage.setItem('elios_dark_mode', 'false');
+        }
+    });
+    
+    document.getElementById('textSizeSelect').addEventListener('change', function() {
+        document.body.className = document.body.className.replace(/text-size-\w+/g, '');
+        document.body.classList.add('text-size-' + this.value);
+        localStorage.setItem('elios_text_size', this.value);
+    });
+    
+    document.querySelectorAll('input[name="colorScheme"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.body.className = document.body.className.replace(/color-scheme-\w+/g, '');
+            document.body.classList.add('color-scheme-' + this.value);
+            localStorage.setItem('elios_color_scheme', this.value);
+        });
+    });
+    
+    // Save buttons
+    document.getElementById('saveAppearance').addEventListener('click', function() {
+        showAlert('Appearance settings saved successfully!', 'success');
+    });
+    
+    document.getElementById('saveLanguage').addEventListener('click', function() {
+        const language = document.getElementById('languageSelect').value;
+        localStorage.setItem('elios_language', language);
+        
+        fetch('/settings/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({language: language})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showAlert('Language settings saved! Please refresh the page to see changes.', 'success');
+            }
+        });
+    });
+    
+    document.getElementById('saveNotifications').addEventListener('click', function() {
+        const notificationSettings = {
+            enabled: document.getElementById('enableNotifications').checked,
+            scheduleReminders: document.getElementById('scheduleReminders').checked,
+            progressUpdates: document.getElementById('progressUpdates').checked,
+            frequency: document.getElementById('reminderFrequency').value
+        };
+        
+        localStorage.setItem('elios_notifications', JSON.stringify(notificationSettings));
+        showAlert('Notification settings saved!', 'success');
+    });
+    
+    // Data management
+    document.getElementById('exportJSON').addEventListener('click', function() {
+        const userData = {
+            session: getSessionData(),
+            localStorage: getLocalStorageData(),
+            timestamp: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(userData, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'elios_data_export.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+    
+    document.getElementById('clearProgress').addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear all progress? This cannot be undone.')) {
+            // Clear progress-related localStorage items
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('elios_') && (key.includes('progress') || key.includes('results'))) {
+                    localStorage.removeItem(key);
+                }
+            });
+            showAlert('Progress cleared successfully!', 'warning');
+        }
+    });
+    
+    document.getElementById('deleteAllData').addEventListener('click', function() {
+        if (confirm('Are you sure you want to delete ALL data? This cannot be undone and will reset everything.')) {
+            if (confirm('This is your final warning. All your data will be permanently deleted.')) {
+                Object.keys(localStorage).forEach(key => {
+                    if (key.startsWith('elios_')) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                showAlert('All data deleted. Redirecting to onboarding...', 'danger');
+                setTimeout(() => {
+                    window.location.href = '/begin';
+                }, 2000);
+            }
+        }
+    });
+    
+    // Content editor
+    loadContentEditor();
+    
+    document.getElementById('formatJSON').addEventListener('click', function() {
+        try {
+            const content = document.getElementById('contentEditor').value;
+            const formatted = JSON.stringify(JSON.parse(content), null, 2);
+            document.getElementById('contentEditor').value = formatted;
+            showAlert('JSON formatted successfully!', 'success');
+        } catch (e) {
+            showAlert('Invalid JSON format!', 'danger');
+        }
+    });
+    
+    document.getElementById('validateJSON').addEventListener('click', function() {
+        try {
+            JSON.parse(document.getElementById('contentEditor').value);
+            showAlert('JSON is valid!', 'success');
+        } catch (e) {
+            showAlert('Invalid JSON: ' + e.message, 'danger');
+        }
+    });
+    
+    document.getElementById('saveContent').addEventListener('click', function() {
+        try {
+            const content = JSON.parse(document.getElementById('contentEditor').value);
+            
+            fetch('/settings/content', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(content)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert('Content saved successfully!', 'success');
+                } else {
+                    showAlert('Error saving content: ' + data.error, 'danger');
+                }
+            });
+        } catch (e) {
+            showAlert('Invalid JSON format!', 'danger');
+        }
+    });
+    
+    function loadCurrentSettings() {
+        // Load dark mode
+        if (localStorage.getItem('elios_dark_mode') === 'true') {
+            document.getElementById('darkModeToggle').checked = true;
+            document.body.classList.add('dark-theme');
+        }
+        
+        // Load text size
+        const textSize = localStorage.getItem('elios_text_size') || 'medium';
+        document.getElementById('textSizeSelect').value = textSize;
+        document.body.classList.add('text-size-' + textSize);
+        
+        // Load color scheme
+        const colorScheme = localStorage.getItem('elios_color_scheme') || 'default';
+        document.querySelector(`input[value="${colorScheme}"]`).checked = true;
+        document.body.classList.add('color-scheme-' + colorScheme);
+        
+        // Load language
+        const language = localStorage.getItem('elios_language') || 'en';
+        document.getElementById('languageSelect').value = language;
+        
+        // Load notification settings
+        const notifications = JSON.parse(localStorage.getItem('elios_notifications') || '{}');
+        document.getElementById('enableNotifications').checked = notifications.enabled !== false;
+        document.getElementById('scheduleReminders').checked = notifications.scheduleReminders !== false;
+        document.getElementById('progressUpdates').checked = notifications.progressUpdates === true;
+        document.getElementById('reminderFrequency').value = notifications.frequency || 'daily';
+    }
+    
+    function loadContentEditor() {
+        const content = {{ content | tojsonhtml }};
+        document.getElementById('contentEditor').value = JSON.stringify(content, null, 2);
+    }
+    
+    function getSessionData() {
+        // This would normally come from the server
+        return {
+            user_name: 'Current session data would be here',
+            note: 'This is a placeholder for actual session data'
+        };
+    }
+    
+    function getLocalStorageData() {
+        const data = {};
+        Object.keys(localStorage).forEach(key => {
+            if (key.startsWith('elios_')) {
+                data[key] = localStorage.getItem(key);
+            }
+        });
+        return data;
+    }
+    
+    function showAlert(message, type) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; max-width: 400px;';
+        alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(alertDiv);
+        
+        setTimeout(() => {
+            if (alertDiv.parentNode) {
+                alertDiv.remove();
+            }
+        }, 5000);
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Elios{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="display-6 fw-bold">
+                        <i class="fas fa-chart-bar text-primary me-3"></i>Dashboard
+                    </h1>
+                    <p class="text-muted">Track your progress and analyze your growth</p>
+                </div>
+                <button id="downloadAnalytics" class="btn btn-primary btn-lg">
+                    <i class="fas fa-download me-2"></i>Download Analytics
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card stats-card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="stats-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3 class="stats-number text-primary" id="overallProgress">{{ progress.overall }}%</h3>
+                    <p class="stats-label text-muted mb-0">Overall Progress</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card stats-card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="stats-icon bg-success text-white rounded-circle mx-auto mb-3">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="stats-number text-success" id="careerProgress">{{ progress.career }}%</h3>
+                    <p class="stats-label text-muted mb-0">Career Exploration</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card stats-card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="stats-icon bg-info text-white rounded-circle mx-auto mb-3">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="stats-number text-info" id="timetableProgress">{{ progress.timetable }}%</h3>
+                    <p class="stats-label text-muted mb-0">Schedule Planning</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card stats-card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="stats-icon bg-warning text-white rounded-circle mx-auto mb-3">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="stats-number text-warning" id="engagementScore">85%</h3>
+                    <p class="stats-label text-muted mb-0">Engagement Score</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Progress Over Time</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="progressChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0"><i class="fas fa-smile me-2"></i>Mood Trends</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="moodChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Time Distribution</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="timeChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Achievements</h5>
+                </div>
+                <div class="card-body">
+                    <div class="achievement-list">
+                        <div class="achievement-item d-flex align-items-center mb-3">
+                            <div class="achievement-icon bg-success text-white rounded-circle me-3">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Onboarding Complete</h6>
+                                <small class="text-muted">Completed your initial setup</small>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-item d-flex align-items-center mb-3">
+                            <div class="achievement-icon bg-primary text-white rounded-circle me-3">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Schedule Creator</h6>
+                                <small class="text-muted">Built your first timetable</small>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-item d-flex align-items-center mb-3">
+                            <div class="achievement-icon bg-info text-white rounded-circle me-3">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Career Explorer</h6>
+                                <small class="text-muted">Explored career options</small>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-item d-flex align-items-center mb-3 opacity-50">
+                            <div class="achievement-icon bg-secondary text-white rounded-circle me-3">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Community Member</h6>
+                                <small class="text-muted">Join the community (Coming Soon)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-primary"></div>
+                            <div class="timeline-content">
+                                <h6>Visited Dashboard</h6>
+                                <p class="text-muted small mb-0">Just now</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-success"></div>
+                            <div class="timeline-content">
+                                <h6>Updated Timetable</h6>
+                                <p class="text-muted small mb-0">2 hours ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-info"></div>
+                            <div class="timeline-content">
+                                <h6>Completed Career Quiz</h6>
+                                <p class="text-muted small mb-0">Yesterday</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-warning"></div>
+                            <div class="timeline-content">
+                                <h6>Joined Elios</h6>
+                                <p class="text-muted small mb-0">2 days ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Update dashboard visit
+    fetch('/api/progress', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({dashboard_visited: true})
+    });
+    
+    // Progress Chart
+    const progressCtx = document.getElementById('progressChart').getContext('2d');
+    new Chart(progressCtx, {
+        type: 'line',
+        data: {
+            labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+            datasets: [{
+                label: 'Overall Progress',
+                data: [10, 25, 35, 50, 65, 75, {{ progress.overall }}],
+                borderColor: '#6f42c1',
+                backgroundColor: 'rgba(111, 66, 193, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Career Progress',
+                data: [0, 10, 20, 40, 60, 80, {{ progress.career }}],
+                borderColor: '#20c997',
+                backgroundColor: 'rgba(32, 201, 151, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+    
+    // Mood Chart
+    const moodCtx = document.getElementById('moodChart').getContext('2d');
+    new Chart(moodCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Excited', 'Confident', 'Curious', 'Uncertain'],
+            datasets: [{
+                data: [35, 25, 25, 15],
+                backgroundColor: [
+                    '#28a745',
+                    '#007bff',
+                    '#ffc107',
+                    '#dc3545'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+    
+    // Time Distribution Chart
+    const timeCtx = document.getElementById('timeChart').getContext('2d');
+    new Chart(timeCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Study', 'Classes', 'Breaks', 'Exercise', 'Free Time'],
+            datasets: [{
+                label: 'Hours per Week',
+                data: [20, 15, 8, 5, 10],
+                backgroundColor: [
+                    '#007bff',
+                    '#28a745',
+                    '#ffc107',
+                    '#dc3545',
+                    '#6c757d'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+    // Download Analytics
+    document.getElementById('downloadAnalytics').addEventListener('click', function() {
+        window.location.href = '/download/analytics';
+    });
+    
+    // Animate progress numbers
+    function animateValue(elementId, start, end, duration) {
+        const element = document.getElementById(elementId);
+        const range = end - start;
+        const current = start;
+        const increment = end > start ? 1 : -1;
+        const stepTime = Math.abs(Math.floor(duration / range));
+        
+        const timer = setInterval(function() {
+            current += increment;
+            element.textContent = current + '%';
+            if (current == end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+    }
+    
+    // Animate the progress numbers
+    setTimeout(() => {
+        animateValue('overallProgress', 0, {{ progress.overall }}, 1000);
+        animateValue('careerProgress', 0, {{ progress.career }}, 1200);
+        animateValue('timetableProgress', 0, {{ progress.timetable }}, 1400);
+        animateValue('engagementScore', 0, 85, 1600);
+    }, 500);
+});
+</script>
+{% endblock %}

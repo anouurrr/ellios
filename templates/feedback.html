@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+
+{% block title %}Feedback - Elios{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <i class="fas fa-comment fa-4x text-primary mb-3"></i>
+                <h1 class="display-5 fw-bold">Share Your Feedback</h1>
+                <p class="lead text-muted">Help us improve Elios by sharing your thoughts and experiences</p>
+            </div>
+
+            {% if success %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong>Thank you!</strong> Your feedback has been submitted successfully.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+
+            {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Error!</strong> There was a problem submitting your feedback. Please try again.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient text-white">
+                    <h4 class="mb-0"><i class="fas fa-star me-2"></i>Rate Your Experience</h4>
+                </div>
+                <div class="card-body p-5">
+                    <form method="POST" id="feedbackForm">
+                        <div class="mb-4">
+                            <label class="form-label h5">How would you rate your overall experience with Elios?</label>
+                            <div class="rating-container text-center my-4">
+                                <div class="star-rating">
+                                    <input type="radio" id="star5" name="rating" value="5" required>
+                                    <label for="star5" class="star-label" title="Excellent">
+                                        <i class="fas fa-star"></i>
+                                    </label>
+                                    
+                                    <input type="radio" id="star4" name="rating" value="4" required>
+                                    <label for="star4" class="star-label" title="Good">
+                                        <i class="fas fa-star"></i>
+                                    </label>
+                                    
+                                    <input type="radio" id="star3" name="rating" value="3" required>
+                                    <label for="star3" class="star-label" title="Average">
+                                        <i class="fas fa-star"></i>
+                                    </label>
+                                    
+                                    <input type="radio" id="star2" name="rating" value="2" required>
+                                    <label for="star2" class="star-label" title="Poor">
+                                        <i class="fas fa-star"></i>
+                                    </label>
+                                    
+                                    <input type="radio" id="star1" name="rating" value="1" required>
+                                    <label for="star1" class="star-label" title="Very Poor">
+                                        <i class="fas fa-star"></i>
+                                    </label>
+                                </div>
+                                <div class="rating-text mt-3">
+                                    <span id="ratingText" class="text-muted">Please select a rating</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="feedbackText" class="form-label h5">Tell us more about your experience</label>
+                            <textarea class="form-control form-control-lg" id="feedbackText" name="feedback_text" 
+                                     rows="6" placeholder="What did you like? What could be improved? Any suggestions?" required></textarea>
+                            <div class="form-text">
+                                <span id="charCount">0</span>/500 characters
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label h6">Which features did you find most helpful?</label>
+                                <div class="feature-checkboxes">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="career_finder" value="career_finder">
+                                        <label class="form-check-label" for="career_finder">
+                                            <i class="fas fa-briefcase me-2"></i>Career Finder
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="timetable_builder" value="timetable_builder">
+                                        <label class="form-check-label" for="timetable_builder">
+                                            <i class="fas fa-calendar-alt me-2"></i>Timetable Builder
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="dashboard" value="dashboard">
+                                        <label class="form-check-label" for="dashboard">
+                                            <i class="fas fa-chart-bar me-2"></i>Dashboard
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="user_interface" value="user_interface">
+                                        <label class="form-check-label" for="user_interface">
+                                            <i class="fas fa-palette me-2"></i>User Interface
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label h6">How likely are you to recommend Elios?</label>
+                                <select class="form-select form-select-lg" name="recommendation" required>
+                                    <option value="">Choose...</option>
+                                    <option value="very_likely">Very Likely</option>
+                                    <option value="likely">Likely</option>
+                                    <option value="neutral">Neutral</option>
+                                    <option value="unlikely">Unlikely</option>
+                                    <option value="very_unlikely">Very Unlikely</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Feedback
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="feedback-stat">
+                            <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                            <h4>1,000+</h4>
+                            <p class="text-muted">Happy Users</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="feedback-stat">
+                            <i class="fas fa-star fa-3x text-warning mb-3"></i>
+                            <h4>4.8/5</h4>
+                            <p class="text-muted">Average Rating</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="feedback-stat">
+                            <i class="fas fa-comments fa-3x text-success mb-3"></i>
+                            <h4>500+</h4>
+                            <p class="text-muted">Feedback Received</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4 border-0 bg-light">
+                <div class="card-body text-center p-4">
+                    <h5 class="card-title">Other Ways to Connect</h5>
+                    <p class="card-text text-muted">Have questions or need support? We're here to help!</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="mailto:support@elios.com" class="btn btn-outline-primary">
+                            <i class="fas fa-envelope me-2"></i>Email Support
+                        </a>
+                        <a href="#" class="btn btn-outline-info">
+                            <i class="fab fa-twitter me-2"></i>Follow Us
+                        </a>
+                        <a href="#" class="btn btn-outline-success">
+                            <i class="fas fa-question-circle me-2"></i>Help Center
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ratingTexts = {
+        1: "Very Poor - We need to improve a lot",
+        2: "Poor - There's room for improvement", 
+        3: "Average - It's okay, but could be better",
+        4: "Good - You're enjoying the experience",
+        5: "Excellent - You love using Elios!"
+    };
+    
+    // Star rating functionality
+    const starLabels = document.querySelectorAll('.star-label');
+    const ratingText = document.getElementById('ratingText');
+    
+    starLabels.forEach((label, index) => {
+        label.addEventListener('mouseenter', function() {
+            const rating = 5 - index;
+            highlightStars(rating);
+            ratingText.textContent = ratingTexts[rating];
+            ratingText.className = getRatingClass(rating);
+        });
+        
+        label.addEventListener('click', function() {
+            const rating = 5 - index;
+            ratingText.textContent = ratingTexts[rating];
+            ratingText.className = getRatingClass(rating);
+        });
+    });
+    
+    document.querySelector('.star-rating').addEventListener('mouseleave', function() {
+        const checkedRating = document.querySelector('input[name="rating"]:checked');
+        if (checkedRating) {
+            highlightStars(parseInt(checkedRating.value));
+            ratingText.textContent = ratingTexts[checkedRating.value];
+            ratingText.className = getRatingClass(checkedRating.value);
+        } else {
+            highlightStars(0);
+            ratingText.textContent = "Please select a rating";
+            ratingText.className = "text-muted";
+        }
+    });
+    
+    function highlightStars(rating) {
+        starLabels.forEach((label, index) => {
+            const starRating = 5 - index;
+            if (starRating <= rating) {
+                label.classList.add('active');
+            } else {
+                label.classList.remove('active');
+            }
+        });
+    }
+    
+    function getRatingClass(rating) {
+        if (rating >= 4) return "text-success fw-bold";
+        if (rating >= 3) return "text-warning fw-bold";
+        return "text-danger fw-bold";
+    }
+    
+    // Character counter
+    const feedbackText = document.getElementById('feedbackText');
+    const charCount = document.getElementById('charCount');
+    const maxChars = 500;
+    
+    feedbackText.addEventListener('input', function() {
+        const currentLength = this.value.length;
+        charCount.textContent = currentLength;
+        
+        if (currentLength > maxChars * 0.9) {
+            charCount.classList.add('text-warning');
+        } else {
+            charCount.classList.remove('text-warning');
+        }
+        
+        if (currentLength > maxChars) {
+            this.value = this.value.substring(0, maxChars);
+            charCount.textContent = maxChars;
+            charCount.classList.add('text-danger');
+        } else {
+            charCount.classList.remove('text-danger');
+        }
+    });
+    
+    // Form submission
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
+        submitBtn.disabled = true;
+        
+        // Collect helpful features
+        const helpfulFeatures = [];
+        document.querySelectorAll('.feature-checkboxes input:checked').forEach(checkbox => {
+            helpfulFeatures.push(checkbox.value);
+        });
+        
+        // Add helpful features to form data
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'helpful_features';
+        hiddenInput.value = JSON.stringify(helpfulFeatures);
+        this.appendChild(hiddenInput);
+        
+        // Store feedback locally as well
+        const feedbackData = {
+            rating: document.querySelector('input[name="rating"]:checked')?.value,
+            feedback_text: feedbackText.value,
+            helpful_features: helpfulFeatures,
+            recommendation: document.querySelector('select[name="recommendation"]').value,
+            timestamp: new Date().toISOString()
+        };
+        
+        localStorage.setItem('elios_last_feedback', JSON.stringify(feedbackData));
+    });
+    
+    // Load any previous feedback data
+    const lastFeedback = localStorage.getItem('elios_last_feedback');
+    if (lastFeedback && !document.querySelector('.alert-success')) {
+        try {
+            const data = JSON.parse(lastFeedback);
+            // Optionally pre-fill form with previous data
+            // (commented out to avoid confusion)
+            /*
+            if (data.rating) {
+                document.querySelector(`input[value="${data.rating}"]`).checked = true;
+                highlightStars(parseInt(data.rating));
+            }
+            */
+        } catch (e) {
+            console.log('Error loading previous feedback data');
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Get Started - Elios{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0 animated-card">
+                <div class="card-header bg-gradient text-white text-center py-4">
+                    <i class="fas fa-compass fa-3x mb-3 rotating-compass"></i>
+                    <h2 class="mb-0">Welcome to Elios</h2>
+                    <p class="mb-0 opacity-75">Your Inner Compass</p>
+                </div>
+                
+                <div class="card-body p-5">
+                    <form method="POST" id="onboardingForm">
+                        <div class="question-step active" data-step="1">
+                            <h4 class="question-title">What's your name?</h4>
+                            <div class="mb-4">
+                                <input type="text" class="form-control form-control-lg" name="name" required>
+                            </div>
+                        </div>
+
+                        <div class="question-step" data-step="2">
+                            <h4 class="question-title">Why are you here today?</h4>
+                            <div class="mb-4">
+                                <select class="form-select form-select-lg" name="why_here" required>
+                                    <option value="">Choose your reason...</option>
+                                    <option value="career_exploration">Explore career options</option>
+                                    <option value="schedule_planning">Plan my schedule better</option>
+                                    <option value="personal_growth">Focus on personal growth</option>
+                                    <option value="academic_guidance">Get academic guidance</option>
+                                    <option value="life_direction">Find direction in life</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="question-step" data-step="3">
+                            <h4 class="question-title">Are you a student?</h4>
+                            <div class="mb-4">
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="is_student" id="student_yes" value="yes" required>
+                                    <label class="btn btn-outline-primary btn-lg" for="student_yes">Yes, I'm a student</label>
+                                    
+                                    <input type="radio" class="btn-check" name="is_student" id="student_no" value="no" required>
+                                    <label class="btn btn-outline-primary btn-lg" for="student_no">No, I'm not</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question-step" data-step="4">
+                            <h4 class="question-title">How are you feeling today?</h4>
+                            <div class="mb-4">
+                                <select class="form-select form-select-lg" name="feeling" required>
+                                    <option value="">Select your mood...</option>
+                                    <option value="excited">😊 Excited and motivated</option>
+                                    <option value="curious">🤔 Curious and exploring</option>
+                                    <option value="uncertain">😐 Uncertain but hopeful</option>
+                                    <option value="overwhelmed">😰 Overwhelmed but determined</option>
+                                    <option value="confident">💪 Confident and ready</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="question-step" data-step="5">
+                            <h4 class="question-title">What matters most to you?</h4>
+                            <div class="mb-4">
+                                <select class="form-select form-select-lg" name="matters_most" required>
+                                    <option value="">Choose what's important...</option>
+                                    <option value="family">👨‍👩‍👧‍👦 Family and relationships</option>
+                                    <option value="success">🏆 Achievement and success</option>
+                                    <option value="creativity">🎨 Creativity and self-expression</option>
+                                    <option value="helping">🤝 Helping others</option>
+                                    <option value="knowledge">📚 Knowledge and learning</option>
+                                    <option value="freedom">🕊️ Freedom and independence</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="question-step" data-step="6">
+                            <h4 class="question-title">What goal excites you most right now?</h4>
+                            <div class="mb-4">
+                                <textarea class="form-control form-control-lg" name="goal" rows="3" 
+                                         placeholder="Share what you're working towards or hoping to achieve..." required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="navigation-buttons d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-secondary btn-lg" id="prevBtn" style="display: none;">
+                                <i class="fas fa-arrow-left me-2"></i>Back
+                            </button>
+                            <button type="button" class="btn btn-primary btn-lg ms-auto" id="nextBtn">
+                                Next<i class="fas fa-arrow-right ms-2"></i>
+                            </button>
+                            <button type="submit" class="btn btn-success btn-lg ms-auto" id="submitBtn" style="display: none;">
+                                <i class="fas fa-compass me-2"></i>Start My Journey
+                            </button>
+                        </div>
+
+                        <div class="progress mt-4">
+                            <div class="progress-bar bg-gradient" role="progressbar" style="width: 16.67%"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentStep = 1;
+    const totalSteps = 6;
+    
+    const steps = document.querySelectorAll('.question-step');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const progressBar = document.querySelector('.progress-bar');
+    
+    function showStep(step) {
+        steps.forEach((s, index) => {
+            s.classList.toggle('active', index + 1 === step);
+        });
+        
+        prevBtn.style.display = step > 1 ? 'block' : 'none';
+        nextBtn.style.display = step < totalSteps ? 'block' : 'none';
+        submitBtn.style.display = step === totalSteps ? 'block' : 'none';
+        
+        const progress = (step / totalSteps) * 100;
+        progressBar.style.width = progress + '%';
+    }
+    
+    nextBtn.addEventListener('click', function() {
+        const currentStepElement = document.querySelector(`[data-step="${currentStep}"]`);
+        const inputs = currentStepElement.querySelectorAll('input, select, textarea');
+        
+        let isValid = true;
+        inputs.forEach(input => {
+            if (input.required && !input.value) {
+                isValid = false;
+                input.classList.add('is-invalid');
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+        
+        if (isValid && currentStep < totalSteps) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    });
+    
+    prevBtn.addEventListener('click', function() {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    });
+    
+    // Save data to localStorage on each input
+    document.querySelectorAll('input, select, textarea').forEach(input => {
+        input.addEventListener('change', function() {
+            localStorage.setItem('elios_' + this.name, this.value);
+        });
+    });
+});
+</script>
+{% endblock %}

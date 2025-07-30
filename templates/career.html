@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}Career Finder - Elios{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <i class="fas fa-briefcase fa-4x text-primary mb-3"></i>
+                <h1 class="display-5 fw-bold">Career Finder</h1>
+                <p class="lead text-muted">Discover careers that match your interests and skills</p>
+            </div>
+
+            <div id="careerQuiz" class="card shadow-lg border-0">
+                <div class="card-header bg-gradient text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">5</span></h4>
+                        <div class="progress flex-grow-1 ms-3" style="height: 8px;">
+                            <div id="quizProgress" class="progress-bar bg-light" role="progressbar" style="width: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body p-5">
+                    <div id="questionContainer">
+                        <!-- Questions will be loaded here dynamically -->
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        <button id="prevQuestion" class="btn btn-outline-secondary btn-lg" disabled>
+                            <i class="fas fa-arrow-left me-2"></i>Previous
+                        </button>
+                        <button id="nextQuestion" class="btn btn-primary btn-lg">
+                            Next<i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                        <button id="finishQuiz" class="btn btn-success btn-lg" style="display: none;">
+                            <i class="fas fa-check me-2"></i>Get Results
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resultsContainer" class="mt-5" style="display: none;">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-success text-white text-center">
+                        <h3 class="mb-0"><i class="fas fa-trophy me-2"></i>Your Career Matches</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="careerResults">
+                            <!-- Results will be displayed here -->
+                        </div>
+                        <div class="text-center mt-4">
+                            <button id="downloadResults" class="btn btn-primary btn-lg me-3">
+                                <i class="fas fa-download me-2"></i>Download Results
+                            </button>
+                            <button id="retakeQuiz" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-redo me-2"></i>Retake Quiz
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const questions = {{ questions | tojsonhtml }};
+    const careers = {{ careers | tojsonhtml }};
+    
+    let currentQuestionIndex = 0;
+    let answers = {};
+    
+    const questionContainer = document.getElementById('questionContainer');
+    const currentQuestionSpan = document.getElementById('currentQuestion');
+    const totalQuestionsSpan = document.getElementById('totalQuestions');
+    const quizProgress = document.getElementById('quizProgress');
+    const prevBtn = document.getElementById('prevQuestion');
+    const nextBtn = document.getElementById('nextQuestion');
+    const finishBtn = document.getElementById('finishQuiz');
+    const quizContainer = document.getElementById('careerQuiz');
+    const resultsContainer = document.getElementById('resultsContainer');
+    
+    totalQuestionsSpan.textContent = questions.length;
+    
+    function displayQuestion(index) {
+        const question = questions[index];
+        currentQuestionSpan.textContent = index + 1;
+        
+        const progress = ((index + 1) / questions.length) * 100;
+        quizProgress.style.width = progress + '%';
+        
+        let html = `<h4 class="question-title mb-4">${question.question}</h4>`;
+        
+        if (question.type === 'multiple_choice') {
+            html += '<div class="options-container">';
+            question.options.forEach((option, optionIndex) => {
+                const isChecked = answers[question.id] === option.value ? 'checked' : '';
+                html += `
+                    <div class="form-check option-item p-3 mb-3 border rounded hover-lift">
+                        <input class="form-check-input" type="radio" name="question_${question.id}" 
+                               id="option_${optionIndex}" value="${option.value}" ${isChecked}>
+                        <label class="form-check-label w-100" for="option_${optionIndex}">
+                            ${option.text}
+                        </label>
+                    </div>
+                `;
+            });
+            html += '</div>';
+        }
+        
+        questionContainer.innerHTML = html;
+        
+        // Add event listeners for options
+        document.querySelectorAll(`input[name="question_${question.id}"]`).forEach(input => {
+            input.addEventListener('change', function() {
+                answers[question.id] = this.value;
+                updateNavigation();
+            });
+        });
+        
+        updateNavigation();
+    }
+    
+    function updateNavigation() {
+        prevBtn.disabled = currentQuestionIndex === 0;
+        
+        const hasAnswer = answers[questions[currentQuestionIndex].id];
+        nextBtn.disabled = !hasAnswer;
+        
+        if (currentQuestionIndex === questions.length - 1) {
+            nextBtn.style.display = 'none';
+            finishBtn.style.display = hasAnswer ? 'inline-block' : 'none';
+        } else {
+            nextBtn.style.display = 'inline-block';
+            finishBtn.style.display = 'none';
+        }
+    }
+    
+    function showResults(matches) {
+        let html = '';
+        matches.forEach((career, index) => {
+            const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉';
+            html += `
+                <div class="career-match mb-4 p-4 border rounded hover-lift">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-2 me-3">${medal}</span>
+                        <div>
+                            <h4 class="mb-1">${career.title}</h4>
+                            <div class="match-score">
+                                <span class="badge bg-primary">Match Score: ${career.score}%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-3">${career.description}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Growth Outlook:</strong> ${career.growth_outlook}<br>
+                            <strong>Average Salary:</strong> ${career.average_salary}
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Key Skills:</strong><br>
+                            ${career.required_skills.map(skill => `<span class="badge bg-light text-dark me-1">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        document.getElementById('careerResults').innerHTML = html;
+        quizContainer.style.display = 'none';
+        resultsContainer.style.display = 'block';
+        
+        // Save results to localStorage
+        localStorage.setItem('elios_career_results', JSON.stringify({matches, answers}));
+    }
+    
+    // Event listeners
+    prevBtn.addEventListener('click', function() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            displayQuestion(currentQuestionIndex);
+        }
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            displayQuestion(currentQuestionIndex);
+        }
+    });
+    
+    finishBtn.addEventListener('click', function() {
+        // Calculate career matches
+        fetch('/career/result', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({answers: answers})
+        })
+        .then(response => response.json())
+        .then(data => {
+            showResults(data.matches);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    
+    document.getElementById('downloadResults').addEventListener('click', function() {
+        const results = localStorage.getItem('elios_career_results');
+        if (results) {
+            const blob = new Blob([results], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'elios_career_results.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    });
+    
+    document.getElementById('retakeQuiz').addEventListener('click', function() {
+        currentQuestionIndex = 0;
+        answers = {};
+        quizContainer.style.display = 'block';
+        resultsContainer.style.display = 'none';
+        displayQuestion(0);
+    });
+    
+    // Initialize
+    displayQuestion(0);
+});
+</script>
+{% endblock %}

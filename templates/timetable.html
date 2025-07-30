@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+
+{% block title %}Timetable Builder - Elios{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-4">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="display-6 fw-bold">
+                        <i class="fas fa-calendar-alt text-primary me-3"></i>Timetable Builder
+                    </h1>
+                    <p class="text-muted">Drag and drop to create your perfect weekly schedule</p>
+                </div>
+                <div>
+                    <button id="saveTimetable" class="btn btn-success btn-lg me-2">
+                        <i class="fas fa-save me-2"></i>Save
+                    </button>
+                    <button id="downloadTimetable" class="btn btn-primary btn-lg">
+                        <i class="fas fa-download me-2"></i>Download
+                    </button>
+                </div>
+            </div>
+
+            <div class="timetable-container">
+                <div class="table-responsive">
+                    <table class="table table-bordered timetable-grid">
+                        <thead class="table-primary">
+                            <tr>
+                                <th width="100">Time</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
+                                <th>Sunday</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timetableBody">
+                            <!-- Time slots will be generated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-puzzle-piece me-2"></i>Activity Blocks</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small">Drag these blocks to your timetable</p>
+                    
+                    <div class="activity-blocks">
+                        <div class="activity-block study-block" draggable="true" data-type="study">
+                            <i class="fas fa-book me-2"></i>Study
+                        </div>
+                        <div class="activity-block class-block" draggable="true" data-type="class">
+                            <i class="fas fa-chalkboard-teacher me-2"></i>Class
+                        </div>
+                        <div class="activity-block break-block" draggable="true" data-type="break">
+                            <i class="fas fa-coffee me-2"></i>Break
+                        </div>
+                        <div class="activity-block exercise-block" draggable="true" data-type="exercise">
+                            <i class="fas fa-dumbbell me-2"></i>Exercise
+                        </div>
+                        <div class="activity-block meal-block" draggable="true" data-type="meal">
+                            <i class="fas fa-utensils me-2"></i>Meal
+                        </div>
+                        <div class="activity-block hobby-block" draggable="true" data-type="hobby">
+                            <i class="fas fa-palette me-2"></i>Hobby
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h6>Quick Actions</h6>
+                    <button id="clearTimetable" class="btn btn-outline-danger btn-sm w-100 mb-2">
+                        <i class="fas fa-trash me-2"></i>Clear All
+                    </button>
+                    <button id="loadTemplate" class="btn btn-outline-info btn-sm w-100">
+                        <i class="fas fa-file-import me-2"></i>Load Template
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mt-3">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Weekly Summary</h6>
+                </div>
+                <div class="card-body">
+                    <div id="weeklySummary">
+                        <div class="summary-item">
+                            <span class="summary-label">Study:</span>
+                            <span class="summary-value" id="studyHours">0h</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Classes:</span>
+                            <span class="summary-value" id="classHours">0h</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Breaks:</span>
+                            <span class="summary-value" id="breakHours">0h</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Free Time:</span>
+                            <span class="summary-value" id="freeHours">0h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const timeSlots = [];
+    
+    // Generate time slots from 8 AM to 10 PM
+    for (let hour = 8; hour <= 22; hour++) {
+        const time = hour <= 12 ? `${hour}:00 AM` : `${hour - 12}:00 PM`;
+        if (hour === 12) time = '12:00 PM';
+        timeSlots.push({hour, display: time});
+    }
+    
+    let timetableData = {};
+    
+    function initializeTimetable() {
+        const tbody = document.getElementById('timetableBody');
+        tbody.innerHTML = '';
+        
+        timeSlots.forEach(slot => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="time-slot">${slot.display}</td>
+                ${days.map(day => `
+                    <td class="schedule-cell" 
+                        data-day="${day}" 
+                        data-hour="${slot.hour}"
+                        ondrop="drop(event)" 
+                        ondragover="allowDrop(event)">
+                    </td>
+                `).join('')}
+            `;
+            tbody.appendChild(row);
+        });
+        
+        loadTimetableData();
+    }
+    
+    function loadTimetableData() {
+        const saved = localStorage.getItem('elios_timetable');
+        if (saved) {
+            timetableData = JSON.parse(saved);
+            renderTimetable();
+        }
+    }
+    
+    function saveTimetableData() {
+        localStorage.setItem('elios_timetable', JSON.stringify(timetableData));
+        updateWeeklySummary();
+    }
+    
+    function renderTimetable() {
+        // Clear all cells
+        document.querySelectorAll('.schedule-cell').forEach(cell => {
+            cell.innerHTML = '';
+            cell.className = 'schedule-cell';
+        });
+        
+        // Populate with saved data
+        Object.keys(timetableData).forEach(key => {
+            const [day, hour] = key.split('-');
+            const cell = document.querySelector(`[data-day="${day}"][data-hour="${hour}"]`);
+            if (cell && timetableData[key]) {
+                const activity = timetableData[key];
+                cell.innerHTML = `
+                    <div class="scheduled-activity ${activity.type}-activity" data-type="${activity.type}">
+                        <i class="${getActivityIcon(activity.type)} me-1"></i>
+                        ${activity.label || activity.type}
+                        <button class="btn btn-sm btn-outline-danger remove-activity" onclick="removeActivity('${key}')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                cell.classList.add('occupied');
+            }
+        });
+        
+        updateWeeklySummary();
+    }
+    
+    function getActivityIcon(type) {
+        const icons = {
+            study: 'fas fa-book',
+            class: 'fas fa-chalkboard-teacher',
+            break: 'fas fa-coffee',
+            exercise: 'fas fa-dumbbell',
+            meal: 'fas fa-utensils',
+            hobby: 'fas fa-palette'
+        };
+        return icons[type] || 'fas fa-circle';
+    }
+    
+    function updateWeeklySummary() {
+        const summary = {
+            study: 0,
+            class: 0,
+            break: 0,
+            free: 0
+        };
+        
+        Object.values(timetableData).forEach(activity => {
+            if (summary[activity.type] !== undefined) {
+                summary[activity.type]++;
+            }
+        });
+        
+        // Calculate free time (total slots - occupied slots)
+        const totalSlots = timeSlots.length * days.length;
+        const occupiedSlots = Object.keys(timetableData).length;
+        summary.free = totalSlots - occupiedSlots;
+        
+        document.getElementById('studyHours').textContent = `${summary.study}h`;
+        document.getElementById('classHours').textContent = `${summary.class}h`;
+        document.getElementById('breakHours').textContent = `${summary.break}h`;
+        document.getElementById('freeHours').textContent = `${summary.free}h`;
+    }
+    
+    // Drag and drop functionality
+    window.allowDrop = function(ev) {
+        ev.preventDefault();
+    };
+    
+    window.drop = function(ev) {
+        ev.preventDefault();
+        const data = ev.dataTransfer.getData("text");
+        const target = ev.currentTarget;
+        
+        if (!target.classList.contains('occupied')) {
+            const day = target.dataset.day;
+            const hour = target.dataset.hour;
+            const key = `${day}-${hour}`;
+            
+            timetableData[key] = {
+                type: data,
+                label: data.charAt(0).toUpperCase() + data.slice(1)
+            };
+            
+            saveTimetableData();
+            renderTimetable();
+        }
+    };
+    
+    window.removeActivity = function(key) {
+        delete timetableData[key];
+        saveTimetableData();
+        renderTimetable();
+    };
+    
+    // Activity block drag start
+    document.querySelectorAll('.activity-block').forEach(block => {
+        block.addEventListener('dragstart', function(e) {
+            e.dataTransfer.setData("text", this.dataset.type);
+        });
+    });
+    
+    // Button event listeners
+    document.getElementById('saveTimetable').addEventListener('click', function() {
+        saveTimetableData();
+        alert('Timetable saved successfully!');
+    });
+    
+    document.getElementById('downloadTimetable').addEventListener('click', function() {
+        const data = {
+            timetable: timetableData,
+            generated: new Date().toISOString(),
+            summary: {
+                totalSlots: Object.keys(timetableData).length,
+                days: days,
+                timeRange: '8:00 AM - 10:00 PM'
+            }
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'elios_timetable.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+    
+    document.getElementById('clearTimetable').addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear the entire timetable?')) {
+            timetableData = {};
+            saveTimetableData();
+            renderTimetable();
+        }
+    });
+    
+    document.getElementById('loadTemplate').addEventListener('click', function() {
+        // Load a basic template
+        const template = {
+            'monday-9': {type: 'class', label: 'Morning Class'},
+            'monday-11': {type: 'study', label: 'Study Session'},
+            'monday-13': {type: 'meal', label: 'Lunch'},
+            'tuesday-9': {type: 'class', label: 'Morning Class'},
+            'tuesday-11': {type: 'study', label: 'Study Session'},
+            'tuesday-13': {type: 'meal', label: 'Lunch'},
+            'wednesday-9': {type: 'class', label: 'Morning Class'},
+            'wednesday-11': {type: 'study', label: 'Study Session'},
+            'wednesday-13': {type: 'meal', label: 'Lunch'}
+        };
+        
+        if (confirm('This will replace your current timetable. Continue?')) {
+            timetableData = template;
+            saveTimetableData();
+            renderTimetable();
+        }
+    });
+    
+    // Initialize the timetable
+    initializeTimetable();
+});
+</script>
+{% endblock %}
