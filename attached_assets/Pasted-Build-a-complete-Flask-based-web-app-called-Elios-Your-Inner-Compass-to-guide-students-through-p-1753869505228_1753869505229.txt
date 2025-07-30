@@ -1,0 +1,139 @@
+Build a complete Flask-based web app called “Elios – Your Inner Compass” to guide students through purpose, planning, and growth.
+
+🎯 GOAL:
+Help students explore careers, build schedules, and track growth through an elegant interactive site that works fully offline (using localStorage and Flask JSON files).
+
+📄 PAGES & FEATURES:
+🛫 /begin
+Ask 6 onboarding questions:
+
+Name
+
+Why are you here today?
+
+Are you a student?
+
+How are you feeling?
+
+What matters most to you?
+
+What goal excites you?
+
+Store answers in session and localStorage
+
+Redirect to / (Home)
+
+🏠 / Home Page
+Show animated compass logo
+
+Greet user by name and goal
+
+Display 6 large animated cards (with icons & hover effects):
+
+✅ Career Finder
+
+✅ Timetable Builder
+
+✅ Dashboard
+
+✅ Settings
+
+✅ Feedback
+
+🚧 MBTI, Motivation, Community (say “Coming Soon 🚧”)
+
+💼 /career
+Ask 20–30 branching questions from a 100+ pool in content.json
+
+Show one question per screen, with "Back" / "Next" buttons
+
+Use logic to map answers to 30+ diverse careers
+
+End screen shows top 3 matches with explanations + “Download Results (JSON)”
+
+⏱ /timetable
+Weekly drag-and-drop planner (Mon–Sun, 8AM–10PM)
+
+Predefined block types: Study, Class, Break
+
+Save/load from localStorage
+
+Download as JSON
+
+📊 /dashboard
+Visual progress charts (Chart.js or canvas):
+
+% of each section completed
+
+Mood trends
+
+Time spent
+
+Download data button
+
+⚙️ /settings
+Dark mode toggle
+
+Text size toggle
+
+Language selector (English ↔ Urdu for UI)
+
+Download user analytics (as ZIP or JSON)
+
+Embedded JSON editor (to customize section questions)
+
+📩 /feedback
+Text input for feedback
+
+5-star rating
+
+Submits to local feedback.json file (append only)
+
+🖌️ DESIGN:
+Use Poppins (Google Fonts)
+
+Teal & violet soft gradients
+
+CSS animations (fade, slide, hover-lift)
+
+Fully responsive
+
+Accessible (focus states, readable contrast)
+
+📁 FILE STRUCTURE:
+bash
+Copy
+Edit
+/templates
+  begin.html
+  index.html
+  career.html
+  timetable.html
+  dashboard.html
+  settings.html
+  feedback.html
+/static
+  /css/styles.css
+  /js/script.js
+  content.json
+app.py
+feedback.json
+README.md
+🧪 BEHAVIOR:
+Runs with python app.py
+
+Loads on localhost:5000
+
+All storage via localStorage (front-end) or JSON files (Flask)
+
+Works offline after first load
+
+No console errors
+
+🔖 FOOTER (on every page):
+html
+Copy
+Edit
+<footer>
+  © 2025 Elios — Made by Armaghan
+</footer>
