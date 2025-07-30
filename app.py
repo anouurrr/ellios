@@ -71,7 +71,10 @@ def career():
 @app.route('/career/result', methods=['POST'])
 def career_result():
     """Process career quiz results"""
-    answers = request.json.get('answers', {})
+    if request.json:
+        answers = request.json.get('answers', {})
+    else:
+        answers = {}
     content = load_json_file('content.json')
     careers = content.get('careers', {})
     

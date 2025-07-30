@@ -3,502 +3,383 @@
 {% block title %}Settings - Elios{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-cog me-2"></i>Settings</h5>
-                </div>
-                <div class="list-group list-group-flush">
-                    <a href="#appearance" class="list-group-item list-group-item-action active" data-bs-toggle="tab">
-                        <i class="fas fa-palette me-2"></i>Appearance
-                    </a>
-                    <a href="#language" class="list-group-item list-group-item-action" data-bs-toggle="tab">
-                        <i class="fas fa-globe me-2"></i>Language
-                    </a>
-                    <a href="#notifications" class="list-group-item list-group-item-action" data-bs-toggle="tab">
-                        <i class="fas fa-bell me-2"></i>Notifications
-                    </a>
-                    <a href="#data" class="list-group-item list-group-item-action" data-bs-toggle="tab">
-                        <i class="fas fa-database me-2"></i>Data Management
-                    </a>
-                    <a href="#editor" class="list-group-item list-group-item-action" data-bs-toggle="tab">
-                        <i class="fas fa-code me-2"></i>Content Editor
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-9">
-            <div class="tab-content">
-                <!-- Appearance Settings -->
-                <div class="tab-pane fade show active" id="appearance">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-header">
-                            <h5 class="mb-0">Appearance Settings</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <h6>Theme</h6>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="darkModeToggle">
-                                        <label class="form-check-label" for="darkModeToggle">
-                                            <i class="fas fa-moon me-2"></i>Dark Mode
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6>Text Size</h6>
-                                    <select class="form-select" id="textSizeSelect">
-                                        <option value="small">Small</option>
-                                        <option value="medium" selected>Medium</option>
-                                        <option value="large">Large</option>
-                                        <option value="extra-large">Extra Large</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="row mb-4">
-                                <div class="col-12">
-                                    <h6>Color Scheme</h6>
-                                    <div class="color-scheme-options">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="colorScheme" id="defaultScheme" value="default" checked>
-                                            <label class="form-check-label color-preview" for="defaultScheme">
-                                                <div class="color-swatch" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-                                                Default
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="colorScheme" id="tealScheme" value="teal">
-                                            <label class="form-check-label color-preview" for="tealScheme">
-                                                <div class="color-swatch" style="background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);"></div>
-                                                Teal
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="colorScheme" id="purpleScheme" value="purple">
-                                            <label class="form-check-label color-preview" for="purpleScheme">
-                                                <div class="color-swatch" style="background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);"></div>
-                                                Purple
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <button class="btn btn-primary" id="saveAppearance">
-                                <i class="fas fa-save me-2"></i>Save Changes
-                            </button>
-                        </div>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-cog" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        <h2 class="mt-3 mb-2">Personal Settings</h2>
+                        <p class="text-muted">Customize your Elios experience</p>
                     </div>
-                </div>
-                
-                <!-- Language Settings -->
-                <div class="tab-pane fade" id="language">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-header">
-                            <h5 class="mb-0">Language Settings</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <h6>Interface Language</h6>
-                                    <select class="form-select" id="languageSelect">
-                                        <option value="en" selected>English</option>
-                                        <option value="ur">اردو (Urdu)</option>
-                                        <option value="es">Español (Spanish)</option>
-                                        <option value="fr">Français (French)</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6>Date Format</h6>
-                                    <select class="form-select" id="dateFormatSelect">
-                                        <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                                        <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
-                                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="alert alert-info">
-                                <i class="fas fa-info-circle me-2"></i>
-                                Language changes will take effect after refreshing the page.
-                            </div>
-                            
-                            <button class="btn btn-primary" id="saveLanguage">
-                                <i class="fas fa-save me-2"></i>Save Changes
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Notifications Settings -->
-                <div class="tab-pane fade" id="notifications">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-header">
-                            <h5 class="mb-0">Notification Settings</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-4">
-                                <h6>Browser Notifications</h6>
-                                <div class="form-check form-switch mb-2">
-                                    <input class="form-check-input" type="checkbox" id="enableNotifications" checked>
-                                    <label class="form-check-label" for="enableNotifications">
-                                        Enable browser notifications
-                                    </label>
-                                </div>
-                                <div class="form-check form-switch mb-2">
-                                    <input class="form-check-input" type="checkbox" id="scheduleReminders" checked>
-                                    <label class="form-check-label" for="scheduleReminders">
-                                        Schedule reminders
-                                    </label>
-                                </div>
-                                <div class="form-check form-switch mb-2">
-                                    <input class="form-check-input" type="checkbox" id="progressUpdates">
-                                    <label class="form-check-label" for="progressUpdates">
-                                        Progress milestone updates
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <h6>Reminder Frequency</h6>
-                                <select class="form-select" id="reminderFrequency">
-                                    <option value="never">Never</option>
-                                    <option value="daily" selected>Daily</option>
-                                    <option value="weekly">Weekly</option>
-                                    <option value="monthly">Monthly</option>
+
+                    <!-- Theme Settings -->
+                    <div class="settings-section mb-4">
+                        <h4 class="section-title">
+                            <i class="fas fa-palette me-2"></i>Appearance
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Theme</label>
+                                <select class="form-select" id="theme-select">
+                                    <option value="light">Light Mode</option>
+                                    <option value="dark">Dark Mode</option>
+                                    <option value="auto">Auto (System)</option>
                                 </select>
                             </div>
-                            
-                            <button class="btn btn-primary" id="saveNotifications">
-                                <i class="fas fa-save me-2"></i>Save Changes
-                            </button>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Text Size</label>
+                                <select class="form-select" id="text-size-select">
+                                    <option value="small">Small</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="large">Large</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Data Management -->
-                <div class="tab-pane fade" id="data">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-header">
-                            <h5 class="mb-0">Data Management</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-4">
-                                <div class="col-lg-6">
-                                    <h6>Export Data</h6>
-                                    <p class="text-muted small">Download your data for backup or analysis</p>
-                                    <button class="btn btn-outline-primary me-2" id="exportJSON">
-                                        <i class="fas fa-file-code me-2"></i>Export as JSON
-                                    </button>
-                                    <button class="btn btn-outline-success" id="exportCSV">
-                                        <i class="fas fa-file-csv me-2"></i>Export as CSV
-                                    </button>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h6>Import Data</h6>
-                                    <p class="text-muted small">Import previously exported data</p>
-                                    <input type="file" class="form-control" id="importFile" accept=".json,.csv">
-                                    <button class="btn btn-outline-info mt-2" id="importData">
-                                        <i class="fas fa-file-upload me-2"></i>Import Data
-                                    </button>
+
+                    <!-- Privacy & Data -->
+                    <div class="settings-section mb-4">
+                        <h4 class="section-title">
+                            <i class="fas fa-shield-alt me-2"></i>Privacy & Data
+                        </h4>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="analytics-toggle" checked>
+                                    <label class="form-check-label" for="analytics-toggle">
+                                        Allow anonymous usage analytics
+                                    </label>
                                 </div>
                             </div>
-                            
-                            <hr>
-                            
+                            <div class="col-12 mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="progress-save" checked>
+                                    <label class="form-check-label" for="progress-save">
+                                        Save progress locally
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Management -->
+                    <div class="settings-section mb-4">
+                        <h4 class="section-title">
+                            <i class="fas fa-database me-2"></i>Data Management
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <button class="btn btn-outline-primary w-100" onclick="exportAllData()">
+                                    <i class="fas fa-download me-2"></i>Export My Data
+                                </button>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <button class="btn btn-outline-warning w-100" onclick="clearAllData()">
+                                    <i class="fas fa-trash me-2"></i>Clear All Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Info -->
+                    <div class="settings-section mb-4">
+                        <h4 class="section-title">
+                            <i class="fas fa-user me-2"></i>Account Information
+                        </h4>
+                        <div class="account-info">
                             <div class="row">
-                                <div class="col-12">
-                                    <h6 class="text-danger">Danger Zone</h6>
-                                    <p class="text-muted small">These actions cannot be undone</p>
-                                    <button class="btn btn-outline-warning me-2" id="clearProgress">
-                                        <i class="fas fa-eraser me-2"></i>Clear Progress
-                                    </button>
-                                    <button class="btn btn-outline-danger" id="deleteAllData">
-                                        <i class="fas fa-trash me-2"></i>Delete All Data
-                                    </button>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="user-name" placeholder="Your name">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Goal</label>
+                                    <input type="text" class="form-control" id="user-goal" placeholder="Your main goal">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Content Editor -->
-                <div class="tab-pane fade" id="editor">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-header">
-                            <h5 class="mb-0">Content Editor</h5>
-                            <small class="text-muted">Advanced: Edit application content and questions</small>
-                        </div>
-                        <div class="card-body">
-                            <div class="alert alert-warning">
-                                <i class="fas fa-exclamation-triangle me-2"></i>
-                                <strong>Warning:</strong> Editing this content may affect application functionality. 
-                                Make sure you understand the structure before making changes.
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="contentEditor" class="form-label">Content JSON:</label>
-                                <textarea class="form-control font-monospace" id="contentEditor" rows="20" 
-                                         placeholder="Loading content..."></textarea>
-                            </div>
-                            
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <button class="btn btn-outline-secondary me-2" id="formatJSON">
-                                        <i class="fas fa-indent me-2"></i>Format JSON
-                                    </button>
-                                    <button class="btn btn-outline-info" id="validateJSON">
-                                        <i class="fas fa-check-circle me-2"></i>Validate
-                                    </button>
-                                </div>
-                                <div>
-                                    <button class="btn btn-outline-danger me-2" id="resetContent">
-                                        <i class="fas fa-undo me-2"></i>Reset to Default
-                                    </button>
-                                    <button class="btn btn-success" id="saveContent">
-                                        <i class="fas fa-save me-2"></i>Save Content
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+
+                    <!-- Save Settings -->
+                    <div class="text-center">
+                        <button class="btn btn-success btn-lg" onclick="saveSettings()">
+                            <i class="fas fa-save me-2"></i>Save Settings
+                        </button>
                     </div>
+
+                    <!-- Status Message -->
+                    <div id="settings-status" class="mt-3"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+.settings-section {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1.5rem;
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.section-title {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.form-select:focus, .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-success {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    border: none;
+    padding: 12px 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background: linear-gradient(45deg, #45a049, #3d8b40);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.account-info {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Load current settings
     loadCurrentSettings();
+});
+
+function loadCurrentSettings() {
+    // Load theme setting
+    const savedTheme = localStorage.getItem('elios-theme') || 'light';
+    document.getElementById('theme-select').value = savedTheme;
     
-    // Appearance settings
-    document.getElementById('darkModeToggle').addEventListener('change', function() {
-        if (this.checked) {
-            document.body.classList.add('dark-theme');
-            localStorage.setItem('elios_dark_mode', 'true');
-        } else {
-            document.body.classList.remove('dark-theme');
-            localStorage.setItem('elios_dark_mode', 'false');
-        }
-    });
+    // Load text size setting
+    const savedTextSize = localStorage.getItem('elios-text-size') || 'medium';
+    document.getElementById('text-size-select').value = savedTextSize;
     
-    document.getElementById('textSizeSelect').addEventListener('change', function() {
-        document.body.className = document.body.className.replace(/text-size-\w+/g, '');
-        document.body.classList.add('text-size-' + this.value);
-        localStorage.setItem('elios_text_size', this.value);
-    });
+    // Load privacy settings
+    const analyticsEnabled = localStorage.getItem('elios-analytics') !== 'false';
+    document.getElementById('analytics-toggle').checked = analyticsEnabled;
     
-    document.querySelectorAll('input[name="colorScheme"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            document.body.className = document.body.className.replace(/color-scheme-\w+/g, '');
-            document.body.classList.add('color-scheme-' + this.value);
-            localStorage.setItem('elios_color_scheme', this.value);
-        });
-    });
+    const progressSave = localStorage.getItem('elios-progress-save') !== 'false';
+    document.getElementById('progress-save').checked = progressSave;
     
-    // Save buttons
-    document.getElementById('saveAppearance').addEventListener('click', function() {
-        showAlert('Appearance settings saved successfully!', 'success');
-    });
+    // Load user info from session storage or localStorage
+    const userName = localStorage.getItem('elios-user-name') || '';
+    const userGoal = localStorage.getItem('elios-user-goal') || '';
     
-    document.getElementById('saveLanguage').addEventListener('click', function() {
-        const language = document.getElementById('languageSelect').value;
-        localStorage.setItem('elios_language', language);
+    document.getElementById('user-name').value = userName;
+    document.getElementById('user-goal').value = userGoal;
+}
+
+function saveSettings() {
+    try {
+        // Save theme
+        const theme = document.getElementById('theme-select').value;
+        localStorage.setItem('elios-theme', theme);
+        applyTheme(theme);
         
+        // Save text size
+        const textSize = document.getElementById('text-size-select').value;
+        localStorage.setItem('elios-text-size', textSize);
+        applyTextSize(textSize);
+        
+        // Save privacy settings
+        const analyticsEnabled = document.getElementById('analytics-toggle').checked;
+        localStorage.setItem('elios-analytics', analyticsEnabled.toString());
+        
+        const progressSave = document.getElementById('progress-save').checked;
+        localStorage.setItem('elios-progress-save', progressSave.toString());
+        
+        // Save user info
+        const userName = document.getElementById('user-name').value;
+        const userGoal = document.getElementById('user-goal').value;
+        
+        localStorage.setItem('elios-user-name', userName);
+        localStorage.setItem('elios-user-goal', userGoal);
+        
+        // Send to server
         fetch('/settings/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({language: language})
+            body: JSON.stringify({
+                theme: theme,
+                text_size: textSize,
+                analytics_enabled: analyticsEnabled,
+                progress_save: progressSave,
+                user_name: userName,
+                user_goal: userGoal
+            })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                showAlert('Language settings saved! Please refresh the page to see changes.', 'success');
+                showStatus('Settings saved successfully!', 'success');
+            } else {
+                showStatus('Error saving settings', 'error');
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showStatus('Settings saved locally', 'info');
         });
-    });
+        
+    } catch (error) {
+        console.error('Error saving settings:', error);
+        showStatus('Error saving settings', 'error');
+    }
+}
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
     
-    document.getElementById('saveNotifications').addEventListener('click', function() {
-        const notificationSettings = {
-            enabled: document.getElementById('enableNotifications').checked,
-            scheduleReminders: document.getElementById('scheduleReminders').checked,
-            progressUpdates: document.getElementById('progressUpdates').checked,
-            frequency: document.getElementById('reminderFrequency').value
+    if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+    } else {
+        document.body.classList.remove('dark-theme');
+    }
+}
+
+function applyTextSize(size) {
+    document.documentElement.setAttribute('data-text-size', size);
+    
+    const sizeMap = {
+        small: '0.9rem',
+        medium: '1rem',
+        large: '1.1rem'
+    };
+    
+    document.documentElement.style.setProperty('--base-font-size', sizeMap[size]);
+}
+
+function exportAllData() {
+    try {
+        const allData = {
+            settings: {
+                theme: localStorage.getItem('elios-theme'),
+                textSize: localStorage.getItem('elios-text-size'),
+                analytics: localStorage.getItem('elios-analytics'),
+                progressSave: localStorage.getItem('elios-progress-save')
+            },
+            userData: {
+                name: localStorage.getItem('elios-user-name'),
+                goal: localStorage.getItem('elios-user-goal')
+            },
+            timetable: JSON.parse(localStorage.getItem('elios-timetable') || '{}'),
+            progress: JSON.parse(localStorage.getItem('elios-progress') || '{}'),
+            exportDate: new Date().toISOString()
         };
         
-        localStorage.setItem('elios_notifications', JSON.stringify(notificationSettings));
-        showAlert('Notification settings saved!', 'success');
-    });
-    
-    // Data management
-    document.getElementById('exportJSON').addEventListener('click', function() {
-        const userData = {
-            session: getSessionData(),
-            localStorage: getLocalStorageData(),
-            timestamp: new Date().toISOString()
-        };
+        const dataStr = JSON.stringify(allData, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
         
-        const blob = new Blob([JSON.stringify(userData, null, 2)], {type: 'application/json'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'elios_data_export.json';
-        a.click();
-        URL.revokeObjectURL(url);
-    });
-    
-    document.getElementById('clearProgress').addEventListener('click', function() {
-        if (confirm('Are you sure you want to clear all progress? This cannot be undone.')) {
-            // Clear progress-related localStorage items
-            Object.keys(localStorage).forEach(key => {
-                if (key.startsWith('elios_') && (key.includes('progress') || key.includes('results'))) {
-                    localStorage.removeItem(key);
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = `elios-data-${new Date().toISOString().split('T')[0]}.json`;
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showStatus('Data exported successfully!', 'success');
+    } catch (error) {
+        console.error('Export error:', error);
+        showStatus('Error exporting data', 'error');
+    }
+}
+
+function clearAllData() {
+    if (confirm('Are you sure you want to clear all your data? This cannot be undone.')) {
+        try {
+            // Clear localStorage
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('elios-')) {
+                    keysToRemove.push(key);
                 }
-            });
-            showAlert('Progress cleared successfully!', 'warning');
-        }
-    });
-    
-    document.getElementById('deleteAllData').addEventListener('click', function() {
-        if (confirm('Are you sure you want to delete ALL data? This cannot be undone and will reset everything.')) {
-            if (confirm('This is your final warning. All your data will be permanently deleted.')) {
-                Object.keys(localStorage).forEach(key => {
-                    if (key.startsWith('elios_')) {
-                        localStorage.removeItem(key);
-                    }
-                });
-                showAlert('All data deleted. Redirecting to onboarding...', 'danger');
-                setTimeout(() => {
-                    window.location.href = '/begin';
-                }, 2000);
             }
-        }
-    });
-    
-    // Content editor
-    loadContentEditor();
-    
-    document.getElementById('formatJSON').addEventListener('click', function() {
-        try {
-            const content = document.getElementById('contentEditor').value;
-            const formatted = JSON.stringify(JSON.parse(content), null, 2);
-            document.getElementById('contentEditor').value = formatted;
-            showAlert('JSON formatted successfully!', 'success');
-        } catch (e) {
-            showAlert('Invalid JSON format!', 'danger');
-        }
-    });
-    
-    document.getElementById('validateJSON').addEventListener('click', function() {
-        try {
-            JSON.parse(document.getElementById('contentEditor').value);
-            showAlert('JSON is valid!', 'success');
-        } catch (e) {
-            showAlert('Invalid JSON: ' + e.message, 'danger');
-        }
-    });
-    
-    document.getElementById('saveContent').addEventListener('click', function() {
-        try {
-            const content = JSON.parse(document.getElementById('contentEditor').value);
             
-            fetch('/settings/content', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(content)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showAlert('Content saved successfully!', 'success');
-                } else {
-                    showAlert('Error saving content: ' + data.error, 'danger');
-                }
-            });
-        } catch (e) {
-            showAlert('Invalid JSON format!', 'danger');
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+            
+            showStatus('All data cleared successfully', 'success');
+            
+            // Refresh page after 2 seconds
+            setTimeout(() => {
+                window.location.href = '/begin';
+            }, 2000);
+            
+        } catch (error) {
+            console.error('Clear data error:', error);
+            showStatus('Error clearing data', 'error');
         }
-    });
-    
-    function loadCurrentSettings() {
-        // Load dark mode
-        if (localStorage.getItem('elios_dark_mode') === 'true') {
-            document.getElementById('darkModeToggle').checked = true;
-            document.body.classList.add('dark-theme');
-        }
-        
-        // Load text size
-        const textSize = localStorage.getItem('elios_text_size') || 'medium';
-        document.getElementById('textSizeSelect').value = textSize;
-        document.body.classList.add('text-size-' + textSize);
-        
-        // Load color scheme
-        const colorScheme = localStorage.getItem('elios_color_scheme') || 'default';
-        document.querySelector(`input[value="${colorScheme}"]`).checked = true;
-        document.body.classList.add('color-scheme-' + colorScheme);
-        
-        // Load language
-        const language = localStorage.getItem('elios_language') || 'en';
-        document.getElementById('languageSelect').value = language;
-        
-        // Load notification settings
-        const notifications = JSON.parse(localStorage.getItem('elios_notifications') || '{}');
-        document.getElementById('enableNotifications').checked = notifications.enabled !== false;
-        document.getElementById('scheduleReminders').checked = notifications.scheduleReminders !== false;
-        document.getElementById('progressUpdates').checked = notifications.progressUpdates === true;
-        document.getElementById('reminderFrequency').value = notifications.frequency || 'daily';
     }
+}
+
+function showStatus(message, type) {
+    const statusDiv = document.getElementById('settings-status');
+    const alertClass = type === 'success' ? 'alert-success' : 
+                     type === 'error' ? 'alert-danger' : 'alert-info';
     
-    function loadContentEditor() {
-        const content = {{ content | tojsonhtml }};
-        document.getElementById('contentEditor').value = JSON.stringify(content, null, 2);
-    }
-    
-    function getSessionData() {
-        // This would normally come from the server
-        return {
-            user_name: 'Current session data would be here',
-            note: 'This is a placeholder for actual session data'
-        };
-    }
-    
-    function getLocalStorageData() {
-        const data = {};
-        Object.keys(localStorage).forEach(key => {
-            if (key.startsWith('elios_')) {
-                data[key] = localStorage.getItem(key);
-            }
-        });
-        return data;
-    }
-    
-    function showAlert(message, type) {
-        const alertDiv = document.createElement('div');
-        alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-        alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; max-width: 400px;';
-        alertDiv.innerHTML = `
+    statusDiv.innerHTML = `
+        <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
             ${message}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        document.body.appendChild(alertDiv);
-        
-        setTimeout(() => {
-            if (alertDiv.parentNode) {
-                alertDiv.remove();
-            }
-        }, 5000);
-    }
+        </div>
+    `;
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        const alert = statusDiv.querySelector('.alert');
+        if (alert) {
+            alert.remove();
+        }
+    }, 5000);
+}
+
+// Apply saved settings on page load
+window.addEventListener('load', function() {
+    const savedTheme = localStorage.getItem('elios-theme') || 'light';
+    const savedTextSize = localStorage.getItem('elios-text-size') || 'medium';
+    
+    applyTheme(savedTheme);
+    applyTextSize(savedTextSize);
 });
 </script>
 {% endblock %}

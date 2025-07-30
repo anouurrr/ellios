@@ -9,121 +9,118 @@
             <div class="card shadow-lg border-0 rounded-3">
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
-                        <i class="fas fa-comment-alt" style="font-size: 3rem; color: var(--primary-color);"></i>
-                        <h2 class="mt-3 mb-2">Share Your Feedback</h2>
-                        <p class="text-muted">Help us improve Elios with your thoughts and suggestions</p>
+                        <i class="fas fa-comment-dots" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        <h2 class="mt-3 mb-2">Your Feedback Matters</h2>
+                        <p class="text-muted">Help us improve Elios with your valuable insights</p>
                     </div>
 
-                    {% if stats.total_feedback > 0 %}
-                    <div class="stats-section mb-4">
-                        <div class="row text-center">
-                            <div class="col-6">
-                                <div class="stat-item">
-                                    <h4 class="stat-number">{{ stats.total_feedback }}</h4>
-                                    <p class="stat-label text-muted">Feedback Received</p>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="stat-item">
-                                    <h4 class="stat-number">{{ stats.average_rating }}/5</h4>
-                                    <p class="stat-label text-muted">Average Rating</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    <!-- Flash Messages -->
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                            {% for category, message in messages %}
-                                <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
-                                    {{ message }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
-
-                    <form method="POST">
+                    <form id="feedbackForm" method="POST">
                         <!-- Rating Section -->
                         <div class="mb-4">
                             <label class="form-label fw-bold">How would you rate your experience with Elios?</label>
-                            <div class="rating-container d-flex justify-content-center my-3">
+                            <div class="rating-container text-center mt-3">
                                 <div class="star-rating">
-                                    <input type="radio" name="rating" value="5" id="star5" required>
+                                    <input type="radio" name="rating" id="star5" value="5">
                                     <label for="star5" class="star">★</label>
-                                    <input type="radio" name="rating" value="4" id="star4" required>
+                                    <input type="radio" name="rating" id="star4" value="4">
                                     <label for="star4" class="star">★</label>
-                                    <input type="radio" name="rating" value="3" id="star3" required>
+                                    <input type="radio" name="rating" id="star3" value="3">
                                     <label for="star3" class="star">★</label>
-                                    <input type="radio" name="rating" value="2" id="star2" required>
+                                    <input type="radio" name="rating" id="star2" value="2">
                                     <label for="star2" class="star">★</label>
-                                    <input type="radio" name="rating" value="1" id="star1" required>
+                                    <input type="radio" name="rating" id="star1" value="1">
                                     <label for="star1" class="star">★</label>
+                                </div>
+                                <div class="rating-text mt-2">
+                                    <span id="ratingText" class="text-muted">Click a star to rate</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Feedback Text -->
+                        <!-- Features Feedback -->
                         <div class="mb-4">
-                            <label for="feedback_text" class="form-label fw-bold">Tell us about your experience</label>
-                            <textarea class="form-control" id="feedback_text" name="feedback_text" rows="4" 
-                                      placeholder="What did you like? What could be improved? Any suggestions?" required></textarea>
-                        </div>
-
-                        <!-- Helpful Features -->
-                        <div class="mb-4">
-                            <label for="helpful_features" class="form-label fw-bold">Which features did you find most helpful?</label>
-                            <select class="form-select" id="helpful_features" name="helpful_features">
-                                <option value="">Select a feature...</option>
-                                <option value="career_discovery">Career Discovery Quiz</option>
-                                <option value="timetable_builder">Weekly Timetable Builder</option>
-                                <option value="progress_dashboard">Progress Dashboard</option>
-                                <option value="onboarding">Onboarding Experience</option>
-                                <option value="overall_design">Overall Design & User Experience</option>
-                                <option value="all">All features were helpful</option>
-                            </select>
-                        </div>
-
-                        <!-- Recommendation -->
-                        <div class="mb-4">
-                            <label class="form-label fw-bold">Would you recommend Elios to other students?</label>
+                            <label class="form-label fw-bold">Which features did you find most helpful?</label>
                             <div class="mt-2">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="recommendation" id="recommend_yes" value="yes">
-                                    <label class="form-check-label" for="recommend_yes">
-                                        Yes, definitely!
-                                    </label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="recommendation" id="recommend_maybe" value="maybe">
-                                    <label class="form-check-label" for="recommend_maybe">
-                                        Maybe, with some improvements
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="helpful_features" value="onboarding" id="feature_onboarding">
+                                    <label class="form-check-label" for="feature_onboarding">
+                                        Onboarding Questions
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="recommendation" id="recommend_no" value="no">
-                                    <label class="form-check-label" for="recommend_no">
-                                        Not likely
+                                    <input class="form-check-input" type="checkbox" name="helpful_features" value="career" id="feature_career">
+                                    <label class="form-check-label" for="feature_career">
+                                        Career Discovery Quiz
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="helpful_features" value="timetable" id="feature_timetable">
+                                    <label class="form-check-label" for="feature_timetable">
+                                        Weekly Timetable Builder
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="helpful_features" value="dashboard" id="feature_dashboard">
+                                    <label class="form-check-label" for="feature_dashboard">
+                                        Progress Dashboard
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="helpful_features" value="settings" id="feature_settings">
+                                    <label class="form-check-label" for="feature_settings">
+                                        Settings & Customization
                                     </label>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-lg w-100">
-                            <i class="fas fa-paper-plane me-2"></i>Submit Feedback
-                        </button>
+                        <!-- Comments -->
+                        <div class="mb-4">
+                            <label for="comments" class="form-label fw-bold">Tell us more about your experience</label>
+                            <textarea class="form-control" id="comments" name="comments" rows="4" 
+                                      placeholder="What did you like? What could be improved? Any suggestions?"></textarea>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="mb-4">
+                            <label for="email" class="form-label fw-bold">Email (optional)</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   placeholder="your@email.com">
+                            <small class="form-text text-muted">Only if you'd like us to follow up with you</small>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Send Feedback
+                            </button>
+                        </div>
                     </form>
 
                     <!-- Contact Information -->
-                    <div class="mt-4 pt-4 border-top text-center">
-                        <h5 class="mb-3">Want to reach out directly?</h5>
-                        <p class="text-muted mb-2">You can also email us directly at:</p>
-                        <a href="mailto:armaghankhan480@gmail.com" class="btn btn-outline-primary">
-                            <i class="fas fa-envelope me-2"></i>armaghankhan480@gmail.com
-                        </a>
-                        <p class="text-muted mt-3 small">We read every message and genuinely appreciate your feedback!</p>
+                    <div class="contact-info mt-5 pt-4 border-top">
+                        <div class="text-center">
+                            <h5 class="mb-3">Get in Touch</h5>
+                            <p class="mb-2">
+                                <i class="fas fa-envelope me-2"></i>
+                                <strong>Email:</strong> 
+                                <a href="mailto:armaghankhan480@gmail.com" class="text-decoration-none">
+                                    armaghankhan480@gmail.com
+                                </a>
+                            </p>
+                            <p class="text-muted small">
+                                We read every message and appreciate your feedback!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Thank You Message -->
+                    <div id="thankYouMessage" class="text-center mt-4" style="display: none;">
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>Thank you!</strong> Your feedback has been saved. 
+                            You can also reach out directly at armaghankhan480@gmail.com
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,56 +129,34 @@
 </div>
 
 <style>
-/* Star Rating Styles */
 .star-rating {
     direction: rtl;
-    display: inline-flex;
-    padding: 0;
+    display: inline-block;
+    font-size: 2rem;
 }
 
 .star-rating input[type="radio"] {
     display: none;
 }
 
-.star-rating .star {
-    font-size: 2rem;
+.star-rating label {
     color: #ddd;
     cursor: pointer;
-    transition: color 0.2s ease;
-    padding: 0 5px;
+    transition: color 0.2s ease-in-out;
 }
 
-.star-rating .star:hover,
-.star-rating .star:hover ~ .star,
-.star-rating input[type="radio"]:checked ~ .star {
-    color: #ffd700;
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type="radio"]:checked ~ label {
+    color: #FFD700;
 }
 
-.stats-section {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-    border-radius: 15px;
-    padding: 1.5rem;
+.star-rating:hover label {
+    color: #FFD700;
 }
 
-.stat-item {
-    padding: 1rem;
-}
-
-.stat-number {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    margin-bottom: 0;
-}
-
-.form-control:focus, .form-select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+.star-rating label:hover ~ label {
+    color: #ddd;
 }
 
 .form-check-input:checked {
@@ -189,89 +164,155 @@
     border-color: var(--primary-color);
 }
 
-.btn-primary {
-    background: linear-gradient(45deg, #667eea, #764ba2);
+.btn-success {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
     border: none;
-    padding: 12px 24px;
+    padding: 12px 30px;
     font-weight: 500;
     transition: all 0.3s ease;
 }
 
-.btn-primary:hover {
-    background: linear-gradient(45deg, #5a6fd8, #6a3d91);
+.btn-success:hover {
+    background: linear-gradient(45deg, #45a049, #3d8b40);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.btn-outline-primary {
+.contact-info {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.contact-info a {
     color: var(--primary-color);
+    font-weight: 500;
+}
+
+.contact-info a:hover {
+    text-decoration: underline !important;
+}
+
+.form-control:focus, .form-check-input:focus {
     border-color: var(--primary-color);
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    transform: translateY(-2px);
-}
-
-.card {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@media (max-width: 768px) {
-    .star {
-        font-size: 1.5rem !important;
-        padding: 0 3px !important;
-    }
-    
-    .stat-number {
-        font-size: 1.5rem;
-    }
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Add visual feedback for star rating
-    const stars = document.querySelectorAll('.star-rating .star');
+    const ratingInputs = document.querySelectorAll('input[name="rating"]');
+    const ratingText = document.getElementById('ratingText');
+    const form = document.getElementById('feedbackForm');
     
-    stars.forEach(star => {
-        star.addEventListener('mouseenter', function() {
-            const rating = this.getAttribute('for').replace('star', '');
-            highlightStars(rating);
+    const ratingTexts = {
+        '1': 'Poor - Needs significant improvement',
+        '2': 'Fair - Some issues to address',
+        '3': 'Good - Generally satisfactory',
+        '4': 'Very Good - Exceeded expectations',
+        '5': 'Excellent - Outstanding experience!'
+    };
+    
+    // Handle star rating
+    ratingInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            ratingText.textContent = ratingTexts[this.value];
+            ratingText.style.color = '#333';
+            ratingText.style.fontWeight = '500';
         });
     });
     
-    document.querySelector('.star-rating').addEventListener('mouseleave', function() {
-        const checked = document.querySelector('.star-rating input:checked');
-        if (checked) {
-            highlightStars(checked.value);
-        } else {
-            highlightStars(0);
-        }
+    // Handle form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const feedbackData = {
+            rating: formData.get('rating'),
+            helpful_features: formData.getAll('helpful_features'),
+            comments: formData.get('comments'),
+            email: formData.get('email'),
+            timestamp: new Date().toISOString(),
+            user_agent: navigator.userAgent
+        };
+        
+        // Save to localStorage as backup
+        const allFeedback = JSON.parse(localStorage.getItem('elios-feedback') || '[]');
+        allFeedback.push(feedbackData);
+        localStorage.setItem('elios-feedback', JSON.stringify(allFeedback));
+        
+        // Send to server
+        fetch('/feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(feedbackData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showThankYou();
+            } else {
+                showThankYou(); // Still show thank you since we saved locally
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showThankYou(); // Still show thank you since we saved locally
+        });
     });
     
-    function highlightStars(rating) {
-        stars.forEach((star, index) => {
-            const starValue = stars.length - index;
-            if (starValue <= rating) {
-                star.style.color = '#ffd700';
-            } else {
-                star.style.color = '#ddd';
-            }
+    function showThankYou() {
+        form.style.display = 'none';
+        document.getElementById('thankYouMessage').style.display = 'block';
+        
+        // Scroll to thank you message
+        document.getElementById('thankYouMessage').scrollIntoView({
+            behavior: 'smooth'
+        });
+        
+        // Update progress
+        fetch('/api/progress', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                feedback: 100
+            })
         });
     }
+    
+    // Load any existing feedback
+    const existingFeedback = localStorage.getItem('elios-current-feedback');
+    if (existingFeedback) {
+        const data = JSON.parse(existingFeedback);
+        
+        if (data.rating) {
+            document.querySelector(`input[name="rating"][value="${data.rating}"]`).checked = true;
+            ratingText.textContent = ratingTexts[data.rating];
+        }
+        
+        if (data.comments) {
+            document.getElementById('comments').value = data.comments;
+        }
+        
+        if (data.email) {
+            document.getElementById('email').value = data.email;
+        }
+    }
+    
+    // Auto-save form data
+    form.addEventListener('input', function() {
+        const formData = new FormData(form);
+        const currentData = {
+            rating: formData.get('rating'),
+            comments: formData.get('comments'),
+            email: formData.get('email')
+        };
+        localStorage.setItem('elios-current-feedback', JSON.stringify(currentData));
+    });
 });
 </script>
 {% endblock %}
