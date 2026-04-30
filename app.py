@@ -61,6 +61,7 @@ def begin():
 
 @app.route('/career')
 def career():
+    """Career finder page"""
     content = load_json_file('content.json')
     questions = content.get('career_questions', [])
     careers = content.get('careers', {})
@@ -174,11 +175,31 @@ def feedback():
    
     return render_template('feedback.html', stats=stats)
 
-# ... (rest of your app.py remains the same)
+@app.route('/download/<data_type>')
+def download_data(data_type):
+    if data_type == 'analytics':
+        memory_file = io.BytesIO()
+        with zipfile.ZipFile(memory_file, 'w') as zf:
+            session_data = dict(session)
+            zf.writestr('session_data.json', json.dumps(session_data, indent=2))
+            feedback_data = load_json_file('feedback.json')
+            if feedback_data:
+                zf.writestr('feedback.json', json.dumps(feedback_data, indent=2))
+        memory_file.seek(0)
+        return send_file(
+            memory_file,
+            mimetype='application/zip',
+            as_attachment=True,
+            download_name='elios_analytics.zip'
+        )
+    return jsonify({'error': 'Invalid data type'})
 
 if __name__ == '__main__':
     if not os.path.exists('content.json'):
-        initial_content = { ... }   # your original content
+        initial_content = {
+            "career_questions": [ ... ],   # your original sample data
+            "careers": { ... }
+        }
         save_json_file('content.json', initial_content)
    
     if not os.path.exists('feedback.json'):
