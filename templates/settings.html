@@ -29,6 +29,7 @@
                         </div>
                     </div>
 
+                    <!-- Save Button -->
                     <div class="text-center mt-4">
                         <button class="btn btn-primary btn-lg px-5" onclick="saveSettings()">
                             <i class="fas fa-save me-2"></i>Save Settings
@@ -45,25 +46,25 @@
 
 {% block scripts %}
 <script>
-// Dark Mode
+// Dark Mode - Working Globally
 function saveSettings() {
     const theme = document.getElementById('theme-select').value;
+    
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('elios-theme', theme);
     
     document.getElementById('settings-status').innerHTML = `
         <div class="alert alert-success alert-dismissible fade show">
-            Settings saved successfully!
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            Settings saved successfully! Refresh other pages if needed.
         </div>
     `;
 }
 
 // Load saved theme
 document.addEventListener('DOMContentLoaded', function() {
-    const saved = localStorage.getItem('elios-theme') || 'light';
-    document.getElementById('theme-select').value = saved;
-    document.documentElement.setAttribute('data-theme', saved);
+    const savedTheme = localStorage.getItem('elios-theme') || 'light';
+    document.getElementById('theme-select').value = savedTheme;
+    document.documentElement.setAttribute('data-theme', savedTheme);
 });
 </script>
 {% endblock %}
