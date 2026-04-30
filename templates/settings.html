@@ -24,14 +24,26 @@
                                 <select class="form-select" id="theme-select">
                                     <option value="light">Light Mode</option>
                                     <option value="dark">Dark Mode</option>
+                                    <option value="auto">Auto (System)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Text Size</label>
+                                <select class="form-select" id="text-size-select">
+                                    <option value="small">Small</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="large">Large</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Save Button -->
-                    <div class="text-center mt-4">
-                        <button class="btn btn-primary btn-lg px-5" onclick="saveSettings()">
+                    <!-- All your other sections remain exactly the same -->
+                    <!-- Privacy & Data, Data Management, Account Info etc. -->
+
+                    <!-- Save Settings -->
+                    <div class="text-center">
+                        <button class="btn btn-success btn-lg" onclick="saveSettings()">
                             <i class="fas fa-save me-2"></i>Save Settings
                         </button>
                     </div>
@@ -46,21 +58,27 @@
 
 {% block scripts %}
 <script>
-// Dark Mode - Working Globally
+// Improved Dark Mode
 function saveSettings() {
     const theme = document.getElementById('theme-select').value;
-    
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('elios-theme', theme);
     
-    document.getElementById('settings-status').innerHTML = `
-        <div class="alert alert-success alert-dismissible fade show">
-            Settings saved successfully! Refresh other pages if needed.
+    showStatus('Settings saved successfully!', 'success');
+}
+
+function showStatus(message, type) {
+    const statusDiv = document.getElementById('settings-status');
+    const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+    statusDiv.innerHTML = `
+        <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     `;
 }
 
-// Load saved theme
+// Load on page load
 document.addEventListener('DOMContentLoaded', function() {
     const savedTheme = localStorage.getItem('elios-theme') || 'light';
     document.getElementById('theme-select').value = savedTheme;
