@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block title %}Settings - Elios{% endblock %}
 
 {% block content %}
@@ -25,191 +24,53 @@
                                 <select class="form-select" id="theme-select">
                                     <option value="light">Light Mode</option>
                                     <option value="dark">Dark Mode</option>
-                                    <option value="auto">Auto (System)</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Text Size</label>
-                                <select class="form-select" id="text-size-select">
-                                    <option value="small">Small</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="large">Large</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Privacy & Data -->
-                    <div class="settings-section mb-4">
-                        <h4 class="section-title">
-                            <i class="fas fa-shield-alt me-2"></i>Privacy & Data
-                        </h4>
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="analytics-toggle" checked>
-                                    <label class="form-check-label" for="analytics-toggle">
-                                        Allow anonymous usage analytics
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="progress-save" checked>
-                                    <label class="form-check-label" for="progress-save">
-                                        Save progress locally
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Data Management -->
-                    <div class="settings-section mb-4">
-                        <h4 class="section-title">
-                            <i class="fas fa-database me-2"></i>Data Management
-                        </h4>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <button class="btn btn-outline-primary w-100" onclick="exportAllData()">
-                                    <i class="fas fa-download me-2"></i>Export My Data
-                                </button>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <button class="btn btn-outline-warning w-100" onclick="clearAllData()">
-                                    <i class="fas fa-trash me-2"></i>Clear All Data
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Account Info -->
-                    <div class="settings-section mb-4">
-                        <h4 class="section-title">
-                            <i class="fas fa-user me-2"></i>Account Information
-                        </h4>
-                        <div class="account-info">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="user-name" placeholder="Your name">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Goal</label>
-                                    <input type="text" class="form-control" id="user-goal" placeholder="Your main goal">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Save Settings -->
-                    <div class="text-center">
-                        <button class="btn btn-success btn-lg" onclick="saveSettings()">
+                    <!-- Save Button -->
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary btn-lg px-5" onclick="saveSettings()">
                             <i class="fas fa-save me-2"></i>Save Settings
                         </button>
                     </div>
 
-                    <!-- Status Message -->
                     <div id="settings-status" class="mt-3"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
 
-<style>
-.settings-section {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 1.5rem;
-}
-
-.settings-section:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.section-title {
-    color: #333;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-}
-
-.form-select:focus, .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-}
-
-.form-check-input:checked {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-outline-primary {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-success {
-    background: linear-gradient(45deg, #4CAF50, #45a049);
-    border: none;
-    padding: 12px 30px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.btn-success:hover {
-    background: linear-gradient(45deg, #45a049, #3d8b40);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.account-info {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 10px;
-    border: 1px solid #e9ecef;
-}
-</style>
-
+{% block scripts %}
 <script>
-// Dark Mode Toggle - Fixed Version
-function toggleDarkMode() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+// Dark Mode Handler
+function saveSettings() {
+    const theme = document.getElementById('theme-select').value;
     
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('elios-theme', newTheme);
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('elios-theme', theme);
+    
+    showStatus('Settings saved successfully!', 'success');
 }
 
-// Load saved theme on page load
-function loadTheme() {
-    const savedTheme = localStorage.getItem('elios-theme');
-    if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
+function showStatus(message, type) {
+    const statusDiv = document.getElementById('settings-status');
+    statusDiv.innerHTML = `
+        <div class="alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
 }
 
-// Run on load
+// Load saved theme
 document.addEventListener('DOMContentLoaded', function() {
-    loadTheme();
-    
-    // Set the select box to current theme
-    const themeSelect = document.getElementById('theme-select');
-    if (themeSelect) {
-        themeSelect.value = document.documentElement.getAttribute('data-theme') || 'light';
-        
-        themeSelect.addEventListener('change', function() {
-            document.documentElement.setAttribute('data-theme', this.value);
-            localStorage.setItem('elios-theme', this.value);
-        });
-    }
+    const savedTheme = localStorage.getItem('elios-theme') || 'light';
+    document.getElementById('theme-select').value = savedTheme;
+    document.documentElement.setAttribute('data-theme', savedTheme);
 });
 </script>
+{% endblock %}
