@@ -29,7 +29,6 @@
                         </div>
                     </div>
 
-                    <!-- Save Button -->
                     <div class="text-center mt-4">
                         <button class="btn btn-primary btn-lg px-5" onclick="saveSettings()">
                             <i class="fas fa-save me-2"></i>Save Settings
@@ -46,21 +45,15 @@
 
 {% block scripts %}
 <script>
-// Dark Mode Handler
+// Dark Mode
 function saveSettings() {
     const theme = document.getElementById('theme-select').value;
-    
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('elios-theme', theme);
     
-    showStatus('Settings saved successfully!', 'success');
-}
-
-function showStatus(message, type) {
-    const statusDiv = document.getElementById('settings-status');
-    statusDiv.innerHTML = `
-        <div class="alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show">
-            ${message}
+    document.getElementById('settings-status').innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show">
+            Settings saved successfully!
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     `;
@@ -68,9 +61,9 @@ function showStatus(message, type) {
 
 // Load saved theme
 document.addEventListener('DOMContentLoaded', function() {
-    const savedTheme = localStorage.getItem('elios-theme') || 'light';
-    document.getElementById('theme-select').value = savedTheme;
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    const saved = localStorage.getItem('elios-theme') || 'light';
+    document.getElementById('theme-select').value = saved;
+    document.documentElement.setAttribute('data-theme', saved);
 });
 </script>
 {% endblock %}
