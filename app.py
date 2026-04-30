@@ -5,7 +5,12 @@ from datetime import datetime
 from flask import Flask, render_template, request, session, jsonify, redirect, url_for, send_file, flash
 import io
 import zipfile
-a
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+
+app = Flask(__name__)
+app.secret_key = os.environ.get("SESSION_SECRET", "elios-compass-2025")
 
 def load_json_file(filename):
     """Load JSON data from file"""
