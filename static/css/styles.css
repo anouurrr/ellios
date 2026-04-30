@@ -82,3 +82,20 @@ body {
   color: var(--text-secondary);
   border-top: 1px solid var(--border-color);
 }
+[data-theme="dark"] {
+  --bg-light: #0f172a;
+  --bg-white: #1e2937;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --border-color: #334155;
+}
+
+[data-theme="dark"] body {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .card {
+  background-color: #1e2937 !important;
+  color: #f1f5f9 !important;
+}
